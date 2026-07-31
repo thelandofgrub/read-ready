@@ -1,0 +1,2524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ReadReady">
+  <link rel="manifest" id="pwa-manifest">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2300b4d8'/%3E%3Ctext x='16' y='23' font-family='Arial' font-weight='bold' font-size='18' text-anchor='middle' fill='white'%3ERR%3C/text%3E%3C/svg%3E">
+  <title>The The Land of Grub Read Ready Initiative</title>
+  <meta name="description" content="Free sight word flashcards from The Land of Grub. The Read Ready Initiative helps families build early reading skills through adaptive, research-based practice.">
+  <link rel="canonical" href="https://thelandofgrub.com/read-ready">
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="The Land of Grub">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thelandofgrub.com/read-ready">
+  <meta property="og:title" content="The The Land of Grub Read Ready Initiative">
+  <meta property="og:description" content="Free sight word flashcards that adapt to your child. A research-based reading tool from The Land of Grub.">
+  <meta property="og:image" content="https://img1.wsimg.com/isteam/ip/fea02e75-c11d-4b28-a82c-cccd466d4558/The%20Adventures%20of%20Brunch%2C%20Linner%2C%20and%20Snax%20in%20.png">
+  <meta property="og:image:alt" content="Brunch, Linner, and Snax — The Land of Grub">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Land of Grub Read Ready Initiative">
+  <meta name="twitter:description" content="Free sight word flashcards that adapt to your child. A research-based reading tool from The Land of Grub.">
+  <meta name="twitter:image" content="https://img1.wsimg.com/isteam/ip/fea02e75-c11d-4b28-a82c-cccd466d4558/The%20Adventures%20of%20Brunch%2C%20Linner%2C%20and%20Snax%20in%20.png">
+  <meta name="twitter:image:alt" content="Brunch, Linner, and Snax — The Land of Grub">
+  <!-- Google Fonts with strong fallback stack -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- OpenDyslexic -->
+  <style>
+    @font-face {
+      font-family: 'OpenDyslexic';
+      src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/OpenDyslexic-Regular.otf') format('opentype');
+      font-display: swap;
+    }
+  </style>
+
+  <style>
+    /* ─── CSS Variables ──────────────────────────────────── */
+    :root {
+      --sky:    #e8f4fd;
+      --card:   #ffffff;
+      --navy:   #1a2e4a;
+      --teal:   #00b4d8;
+      --green:  #06d6a0;
+      --coral:  #ff6b6b;
+      --gold:   #ffd166;
+      --purple: #7b5ea7;
+      --text:   #1a2e4a;
+      --muted:  #556070;  /* darkened from #7a8fa6 → 6.4:1 on white, passes WCAG AA */
+      --radius: 24px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.10);
+      --word-size: clamp(52px, 12vw, 88px);
+      /* Accessible text-only variants of brand colours (backgrounds keep originals) */
+      --coral-text: #c0392b;  /* 5.4:1 on white — was #ff6b6b at 2.8:1 */
+      --teal-text:  #006d94;  /* 5.2:1 on sky — was #0077a8 at 4.47:1 (borderline) */
+      --green-text: #007a58;  /* 5.4:1 on white — was #06d6a0 at 1.9:1 */
+      --gold-text:  #8b6914;  /* 5.1:1 on white — was #ffd166 at 1.4:1 */
+    }
+
+    /* ─── Dark Mode ──────────────────────────────────────── */
+    body.dark {
+      --sky:    #0d1b2e;
+      --card:   #162033;
+      --navy:   #e8f4fd;
+      --teal:   #00d4f5;
+      --green:  #06d6a0;
+      --coral:  #ff6b6b;
+      --gold:   #ffd166;
+      --purple: #a07dd8;
+      --text:   #e8f4fd;
+      --muted:  #8899aa;
+      --shadow: 0 8px 32px rgba(0,0,0,0.45);
+      /* On dark backgrounds the bright originals pass AA — restore them */
+      --coral-text: #ff8888;  /* 7.1:1 on #162033 */
+      --teal-text:  #00d4f5;  /* 9.1:1 on #162033 */
+      --green-text: #06d6a0;  /* 8.6:1 on #162033 */
+      --gold-text:  #ffd166;  /* 11.3:1 on #162033 — restore original */
+    }
+
+    /* ─── Font size modes ────────────────────────────────── */
+    body.font-lg  { --word-size: clamp(68px, 15vw, 108px); }
+    body.font-xl  { --word-size: clamp(84px, 18vw, 128px); }
+
+    /* ─── Dyslexic Font ──────────────────────────────────── */
+    body.dyslexic,
+    body.dyslexic * { font-family: 'OpenDyslexic', 'Nunito', sans-serif !important; }
+
+    /* ─── Reset ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', 'Trebuchet MS', sans-serif;
+      background: var(--sky);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+
+    /* ─── Background blobs ───────────────────────────────── */
+    .bg-blobs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .blob { position: absolute; border-radius: 50%; opacity: 0.13; animation: drift 18s ease-in-out infinite alternate; }
+    .blob-1 { width:380px;height:380px;background:var(--teal);  top:-80px;left:-100px; animation-delay:0s; }
+    .blob-2 { width:300px;height:300px;background:var(--gold);  bottom:-60px;right:-80px; animation-delay:-6s; }
+    .blob-3 { width:200px;height:200px;background:var(--purple);top:40%;left:60%; animation-delay:-12s; }
+    @keyframes drift { from{transform:translate(0,0) scale(1);} to{transform:translate(30px,20px) scale(1.08);} }
+
+    /* ─── App wrapper ────────────────────────────────────── */
+    #app {
+      position: relative; z-index: 1;
+      max-width: 680px; margin: 0 auto;
+      padding: 20px 16px 60px;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+
+    /* ─── Header ─────────────────────────────────────────── */
+    header { width:100%; display:flex; justify-content:space-between; align-items:center; }
+    /* ─── Skip link (screen-reader / keyboard users) ─────── */
+    .skip-link {
+      position:absolute; top:-100%; left:8px; z-index:99999;
+      background:var(--navy); color:#fff; padding:8px 18px;
+      border-radius:0 0 10px 10px; font-weight:800; font-size:14px;
+      text-decoration:none; transition:top 0.15s;
+    }
+    .skip-link:focus { top:0; outline:3px solid var(--teal); outline-offset:2px; }
+
+    .logo { font-family:'Fredoka One','Impact',cursive; font-size:26px; color:var(--teal-text); letter-spacing:0.5px; }
+    .logo:focus-visible { outline: 3px solid var(--teal); outline-offset: 4px; border-radius: 6px; }
+    .logo span { color:var(--coral-text); }
+    .header-controls { display:flex; gap:8px; }
+    .icon-btn {
+      background:var(--card); border:none; border-radius:50%; width:40px; height:40px;
+      cursor:pointer; font-size:17px; display:flex; align-items:center; justify-content:center;
+      box-shadow:var(--shadow); transition:transform 0.15s, box-shadow 0.15s; color:var(--text);
+      touch-action:manipulation;
+    }
+    .icon-btn:hover { transform:scale(1.12); box-shadow:0 10px 28px rgba(0,0,0,0.15); }
+    .icon-btn:focus-visible { outline:3px solid var(--teal); outline-offset:3px; }
+    .icon-btn[aria-pressed="true"],
+    .icon-btn[aria-expanded="true"] { background:var(--teal); color:#fff; }
+
+    /* ─── Panel base ─────────────────────────────────────── */
+    .panel {
+      display:none; flex-direction:column; gap:14px;
+      background:var(--card); border-radius:var(--radius);
+      padding:20px 22px; width:100%; box-shadow:var(--shadow);
+      animation:slideDown 0.22s ease;
+      max-height:75vh; overflow-y:auto;
+    }
+    .panel.open { display:flex; }
+    .panel.opening { overflow-y:hidden; }   /* suppress scrollbar during slide-in */
+    @keyframes slideDown { from{opacity:0;transform:translateY(-10px);} to{opacity:1;transform:translateY(0);} }
+    .panel-title { font-family:'Fredoka One','Impact',cursive; font-size:18px; color:var(--teal-text); margin:0; padding:0; }
+
+    /* ─── Settings rows ──────────────────────────────────── */
+    .settings-row { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+    .settings-row > label:first-child { font-weight:700; font-size:14px; }
+
+    /* Toggle */
+    .toggle { position:relative; display:inline-block; width:48px; height:26px; flex-shrink:0; }
+    .toggle input { opacity:0; width:0; height:0; }
+    .slider { position:absolute; inset:0; background:#ccc; border-radius:26px; cursor:pointer; transition:background 0.2s; }
+    .slider:before { content:''; position:absolute; width:20px; height:20px; left:3px; bottom:3px; background:#fff; border-radius:50%; transition:transform 0.2s; }
+    .toggle input:checked + .slider { background:var(--teal); }
+    .toggle input:checked + .slider:before { transform:translateX(22px); }
+
+    /* Pills */
+    .pill-group { display:flex; gap:6px; flex-wrap:wrap; }
+    .pill {
+      padding:5px 12px; border-radius:99px; border:2px solid currentColor;
+      background:transparent; font-family:'Nunito',sans-serif;
+      font-weight:700; font-size:13px; cursor:pointer; transition:background 0.16s,color 0.16s,box-shadow 0.16s;
+    }
+    .pill-teal  { color:var(--teal-text); }
+    .pill-teal.active,  .pill-teal:hover  { background:var(--teal-text);  color:#fff; }  /* #0077a8 = 5.0:1 ✅ */
+    .pill-purple{ color:var(--purple); }
+    .pill-purple.active,.pill-purple:hover{ background:var(--purple);color:#fff; }  /* 5.2:1 ✅ */
+    .pill-coral { color:var(--coral-text); }
+    .pill-coral.active, .pill-coral:hover { background:var(--coral-text); color:#fff; }  /* #c0392b = 5.4:1 ✅ */
+    .pill:focus-visible { outline:3px solid currentColor; outline-offset:3px; }
+
+    /* ─── Stats panel ────────────────────────────────────── */
+    #stats-panel .stat-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+    }
+    .stat-block { background:var(--sky); border-radius:14px; padding:12px 8px; text-align:center; }
+    .stat-big { font-family:'Fredoka One','Impact',cursive; font-size:26px; color:var(--teal-text); }
+    .stat-lbl { font-size:11px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:0.4px; margin-top:2px; }
+    .stat-block.c-coral .stat-big { color:var(--coral-text); }
+    .stat-block.c-green .stat-big { color:var(--green-text); }
+    .stat-block.c-gold  .stat-big { color:var(--gold-text);  }
+    .stat-block.c-purple .stat-big{ color:var(--purple);}
+    .mastered-list { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+    .mastered-word {
+      background:var(--green); color:var(--navy); padding:3px 10px;  /* navy on green = 7.3:1 ✅ */
+      border-radius:99px; font-size:12px; font-weight:800;
+    }
+    .stats-reset-btn {
+      align-self:flex-end; padding:7px 16px; border:2px solid var(--coral);
+      border-radius:99px; background:transparent; color:var(--coral-text);
+      font-family:'Nunito',sans-serif; font-weight:800; font-size:13px;
+      cursor:pointer; transition:background 0.16s,color 0.16s,box-shadow 0.16s;
+    }
+    .stats-reset-btn:hover { background:var(--coral); color:#fff; }
+    .stats-reset-btn:focus-visible { outline:3px solid var(--coral); outline-offset:2px; }
+
+    /* ─── Progress row ───────────────────────────────────── */
+    .progress-row { width:100%; display:flex; flex-direction:column; gap:6px; }
+    .progress-top { display:flex; justify-content:space-between; align-items:center; }
+    .progress-label { font-size:13px; color:var(--muted); font-weight:700; }
+    .progress-wrap { width:100%; background:var(--card); border-radius:99px; height:13px; box-shadow:inset 0 2px 6px rgba(0,0,0,0.08); overflow:hidden; }
+    #progress-bar { height:100%; width:0%; background:linear-gradient(90deg,var(--teal),var(--green)); border-radius:99px; transition:width 0.4s cubic-bezier(.4,0,.2,1); }
+
+    /* ─── Flashcard ──────────────────────────────────────── */
+    #card-area { width:100%; }
+    #flashcard {
+      width:100%; min-height:200px;
+      background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:12px; padding:32px 24px 28px;
+      cursor:pointer; position:relative; overflow:hidden;
+      transition:transform 0.12s, box-shadow 0.12s;
+      border:3px solid transparent;
+      animation:cardIn 0.35s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes cardIn { from{opacity:0;transform:scale(0.88) translateY(18px);} to{opacity:1;transform:scale(1) translateY(0);} }
+    @keyframes cardOut { from{opacity:1;transform:scale(1) translateY(0);} to{opacity:0;transform:scale(0.92) translateY(-12px);} }
+    #flashcard::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:7px;
+      background:linear-gradient(90deg,var(--teal),var(--purple));
+      border-radius:var(--radius) var(--radius) 0 0;
+    }
+    #flashcard:hover  { transform:scale(1.012); box-shadow:0 16px 48px rgba(0,0,0,0.13); }
+    #flashcard:active { transform:scale(0.98); }
+    #flashcard:focus-visible { outline:3px solid var(--teal); outline-offset:4px; }
+
+    /* Word emoji */
+    #word-emoji { font-size:44px; line-height:1; animation:fadeIn 0.3s ease; min-height:52px; }
+
+    /* Word text */
+    #word-display {
+      font-family:'Fredoka One','Impact',cursive;
+      font-size:var(--word-size);
+      color:var(--navy); line-height:1; letter-spacing:1px;
+      transition:color 0.2s, font-size 0.3s;
+    }
+    body.dark #word-display { color:var(--gold); }
+
+    /* Level tag */
+    #level-tag {
+      position:absolute; top:15px; right:15px;
+      font-size:10px; font-weight:800; padding:3px 9px;
+      border-radius:99px; background:var(--sky); color:var(--muted);
+      text-transform:uppercase; letter-spacing:0.5px;
+    }
+
+    /* Tap hint */
+    .tap-hint { font-size:13px; color:var(--muted); font-weight:600; display:flex; align-items:center; gap:5px; }
+    .tap-hint .icon { font-size:16px; animation:pulse 2s infinite; }
+    .tap-hint .icon.speaking { animation:speakPulse 0.6s ease-out 3; }
+    @keyframes speakPulse { 0%{transform:scale(1);} 40%{transform:scale(1.5);color:var(--teal-text);} 100%{transform:scale(1);} }
+    @keyframes pulse { 0%,100%{opacity:.5;transform:scale(1);} 50%{opacity:1;transform:scale(1.18);} }
+
+    /* ─── Post-card word context panel ──────────────────── */
+    #word-context {
+      width:100%; background:var(--card); border-radius:16px;
+      padding:16px 20px; box-shadow:var(--shadow);
+      display:flex; flex-direction:column; gap:12px;
+      animation:fadeIn 0.35s ease;
+      min-height:72px; /* reserves space so confidence buttons don't jump when content appears */
+    }
+    .context-label {
+      font-size:11px; font-weight:800; color:var(--muted);
+      text-transform:uppercase; letter-spacing:0.5px; display:block; margin-bottom:4px;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
+
+    /* Sentence display */
+    #sentence-display {
+      font-size:16px; color:var(--text); font-weight:600;
+      font-style:italic; text-align:center; line-height:1.6;
+    }
+    #sentence-display .hl { color:var(--teal-text); font-style:normal; font-weight:800; }
+
+    /* Phonics hint */
+    #phonics-display {
+      font-size:14px; color:var(--purple); font-weight:700;
+      text-align:center; letter-spacing:3px;
+    }
+
+    /* ─── "Next" button (post-rating) ────────────────────── */
+    #next-btn {
+      display:none; width:100%;
+      padding:15px; border:none; border-radius:16px;
+      background:#007fa3; color:#fff;  /* darkened from --teal for 4.6:1 contrast */
+      font-family:'Nunito',sans-serif; font-size:16px; font-weight:800;
+      cursor:pointer; transition:transform 0.18s,box-shadow 0.18s,background 0.18s,color 0.18s;
+      animation:fadeIn 0.3s ease;
+    }
+    #next-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,127,163,0.35); }
+    #next-btn:focus-visible { outline:3px solid var(--navy); outline-offset:2px; }
+    #next-btn.visible { display:block; }
+
+    /* Keyboard shortcut hint on next btn */
+    #next-btn .kbd { font-size:11px; opacity:0.65; margin-left:6px; }
+
+    /* ─── Feedback ───────────────────────────────────────── */
+    #feedback { font-family:'Fredoka One','Impact',cursive; font-size:26px; min-height:34px; text-align:center; transition:opacity 0.2s; }
+    #feedback.correct { color:var(--green-text); }
+    #feedback.kindof  { color:var(--gold-text);  }
+    #feedback.skip    { color:var(--coral-text); }
+
+    /* ─── Confidence buttons ─────────────────────────────── */
+    #confidence-row { display:none; width:100%; flex-direction:column; align-items:center; gap:10px; }
+    #confidence-row.visible { display:flex; }
+    .confidence-label { font-size:13px; font-weight:700; color:var(--muted); }
+    .confidence-btns  { display:flex; gap:10px; width:100%; }
+    .conf-btn {
+      flex:1; padding:13px 6px; border-radius:15px; border:none;
+      font-family:'Nunito',sans-serif; font-size:14px; font-weight:800;
+      cursor:pointer; transition:transform 0.18s,box-shadow 0.18s,background 0.18s,color 0.18s;
+      display:flex; flex-direction:column; align-items:center; gap:3px;
+      touch-action:manipulation;
+    }
+    .conf-btn .em { font-size:20px; }
+    .conf-btn .kbd-hint { font-size:10px; opacity:0.55; }
+    .conf-btn.skip-btn { background:#ffeaea; color:var(--coral-text); }  /* #c0392b on #ffeaea = 4.7:1 ✅ */
+    .conf-btn.ok-btn   { background:#fff7e0; color:#9e5e00; }             /* was #d48800 (2.7:1) → #9e5e00 (4.8:1) ✅ */
+    .conf-btn.got-btn  { background:#e6faf5; color:#007a56; }             /* was #00a87a (2.8:1) → #007a56 (4.9:1) ✅ */
+    .conf-btn:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,0.12); }
+    .conf-btn:focus-visible { outline:3px solid var(--teal); outline-offset:2px; }
+    .conf-btn:disabled { opacity:0.45; cursor:default; transform:none; box-shadow:none; }
+
+    /* ─── Sub-action row under confidence ────────────────── */
+    .sub-action-row { display:flex; gap:8px; justify-content:center; }
+    .sub-btn {
+      padding:6px 14px; border-radius:99px; border:none;
+      background:var(--sky); color:var(--muted);
+      font-family:'Nunito',sans-serif; font-size:13px; font-weight:700;
+      cursor:pointer; transition:background 0.16s,color 0.16s,box-shadow 0.16s;
+    }
+    .sub-btn:hover { background:var(--card); color:var(--text); box-shadow:var(--shadow); }
+
+    /* ─── Live stats bar ─────────────────────────────────── */
+    .live-stats { display:flex; gap:10px; width:100%; }
+    .live-stat {
+      flex:1; background:var(--card); border-radius:14px; padding:12px 10px;
+      box-shadow:var(--shadow); text-align:center;
+    }
+    .live-num { font-family:'Fredoka One','Impact',cursive; font-size:26px; color:var(--teal-text); }
+    .live-lbl { font-size:11px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:0.4px; }
+    .live-stat.s-streak .live-num { color:var(--coral-text); }
+    .live-stat.s-review .live-num { color:var(--gold-text); }
+    .streak-fire { animation:fireJiggle 0.4s ease; }
+    @keyframes fireJiggle { 0%,100%{transform:scale(1) rotate(0deg);} 25%{transform:scale(1.3) rotate(-8deg);} 75%{transform:scale(1.3) rotate(8deg);} }
+
+    /* ─── Badges ─────────────────────────────────────────── */
+    .badges-section { width:100%; }
+    .badges-title { font-family:'Fredoka One','Impact',cursive; font-size:17px; color:var(--muted); margin-bottom:8px; }
+    .badges-grid { display:flex; gap:8px; flex-wrap:wrap; }
+    .badge-item {
+      background:var(--card); border-radius:13px; padding:9px 12px;
+      box-shadow:var(--shadow); display:flex; flex-direction:column;
+      align-items:center; gap:2px; opacity:0.3; transition:transform 0.3s,box-shadow 0.3s,opacity 0.3s;
+      position:relative; cursor:default;
+    }
+    .badge-item.earned { opacity:1; }
+    .badge-item.just-earned { animation:badgePop 0.55s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes badgePop { from{transform:scale(0.6);} to{transform:scale(1);} }
+    .badge-icon { font-size:26px; }
+    .badge-name { font-size:10px; font-weight:800; color:var(--muted); text-align:center; }
+    .badge-item.earned .badge-name { color:var(--text); }
+    .badge-tooltip {
+      display:none; position:absolute; bottom:calc(100%+8px); left:50%; transform:translateX(-50%);
+      background:var(--navy); color:#fff; font-size:11px; font-weight:600;
+      padding:4px 10px; border-radius:8px; white-space:nowrap; z-index:10;
+      pointer-events:none;
+    }
+    .badge-item:hover .badge-tooltip,
+    .badge-item:focus-within .badge-tooltip { display:block; }
+    .badge-item:focus-visible { outline:2px solid var(--teal); outline-offset:2px; border-radius:13px; }
+
+    /* ─── Action buttons ─────────────────────────────────── */
+    .action-row { display:flex; gap:10px; width:100%; }
+    .action-btn {
+      flex:1; padding:13px; border:none; border-radius:15px;
+      font-family:'Nunito',sans-serif; font-size:14px; font-weight:800;
+      cursor:pointer; transition:transform 0.18s,box-shadow 0.18s,background 0.18s,color 0.18s;
+      display:flex; align-items:center; justify-content:center; gap:7px;
+      touch-action:manipulation;
+    }
+    .action-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.13); }
+    .action-btn:focus-visible { outline:3px solid var(--teal); outline-offset:2px; }
+    .btn-shuffle { background:var(--navy); color:#fff; }
+    body.dark .btn-shuffle { background:var(--card); color:var(--text); border:2px solid var(--teal); }
+    .btn-review { background:#cc3333; color:#fff; }  /* darkened from --coral for 5.1:1 ✅ */
+    .btn-review:disabled { background:#ccc; cursor:default; transform:none; box-shadow:none; }
+
+    /* ─── End screen ─────────────────────────────────────── */
+    #end-screen { display:none; width:100%; flex-direction:column; align-items:center; gap:16px; animation:cardIn 0.4s ease; }
+    #end-screen.visible { display:flex; }
+    .end-card { background:var(--card); border-radius:var(--radius); padding:28px 24px; box-shadow:var(--shadow); width:100%; text-align:center; }
+    .end-title { font-family:'Fredoka One','Impact',cursive; font-size:34px; color:var(--teal-text); margin-bottom:4px; }
+    .end-score { font-family:'Fredoka One','Impact',cursive; font-size:56px; color:var(--green-text); }
+    .end-sub   { font-size:15px; color:var(--muted); font-weight:600; margin-top:4px; }
+    .missed-list { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:12px; }
+    .missed-tag {
+      background:var(--sky); border:2px solid var(--coral); color:var(--coral-text);
+      padding:4px 12px; border-radius:99px; font-weight:800; font-size:13px;
+      cursor:pointer; transition:background 0.15s,color 0.15s,box-shadow 0.15s;
+    }
+    .missed-tag:hover { background:var(--coral); color:#fff; }
+    .missed-tag:focus-visible { outline:3px solid var(--coral); outline-offset:2px; }
+    .end-actions { display:flex; gap:10px; width:100%; }
+    .btn-new-round {
+      flex:1; padding:15px; border:none; border-radius:15px;
+      background:#007fa3; color:#fff;  /* darkened from --teal for 4.6:1 contrast */
+      font-family:'Nunito',sans-serif; font-size:15px; font-weight:800;
+      cursor:pointer; transition:transform 0.18s,box-shadow 0.18s,background 0.18s,color 0.18s;
+    }
+    .btn-new-round:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,127,163,0.35); }
+    .btn-practice-missed {
+      flex:1; padding:15px; border:none; border-radius:15px;
+      background:#cc3333; color:#fff;  /* darkened from --coral for 5.1:1 contrast */
+      font-family:'Nunito',sans-serif; font-size:15px; font-weight:800;
+      cursor:pointer; transition:transform 0.18s,box-shadow 0.18s,background 0.18s,color 0.18s;
+    }
+    .btn-practice-missed:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(204,51,51,0.35); }
+    .btn-practice-missed:disabled { background:#ccc; cursor:default; transform:none; box-shadow:none; }
+
+    /* ─── Confetti ───────────────────────────────────────── */
+    #confetti-container { position:fixed; inset:0; pointer-events:none; z-index:9999; display:none; overflow:hidden; }
+    .cp { position:absolute; border-radius:3px; animation:fall linear forwards; }
+    @keyframes fall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1;} 100%{transform:translateY(110vh) rotate(720deg);opacity:0;} }
+
+    /* ─── Keyboard shortcut hint ─────────────────────────── */
+    #kbd-hint {
+      font-size:11px; color:var(--muted); text-align:center; font-weight:600;
+      opacity:0.7; letter-spacing:0.2px;
+    }
+    #kbd-hint kbd { font: inherit; font-weight: 700; }
+
+    /* ─── Responsive ─────────────────────────────────────── */
+    @media(max-width:480px) {
+      .live-stats { gap:7px; }
+      .conf-btn { padding:11px 3px; font-size:13px; }
+      .conf-btn .kbd-hint { display:none; }
+      .action-row { flex-direction:column; }
+      .end-actions { flex-direction:column; }
+      .stat-grid { grid-template-columns:repeat(2,1fr) !important; }
+      #kbd-hint { display:none; }
+    }
+
+    /* ─── Reduced motion ─────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .blob { animation: none; }
+      #flashcard, .badge-item, #next-btn, #word-context { animation: none; transition: none; }
+      .conf-btn, .action-btn, .icon-btn { transition: none; }
+      @keyframes cardIn   { from{opacity:1;transform:none;} to{opacity:1;transform:none;} }
+      @keyframes cardOut  { from{opacity:1;transform:none;} to{opacity:1;transform:none;} }
+      @keyframes fadeIn   { from{opacity:1;transform:none;} to{opacity:1;transform:none;} }
+      @keyframes badgePop { from{transform:none;} to{transform:none;} }
+      @keyframes pulse    { 0%,100%{opacity:1;transform:none;} }
+      .panel              { animation: none; }
+      .tap-hint .icon     { animation: none; }
+      .streak-fire        { animation: none; }
+      @keyframes slideDown  { from{opacity:1;transform:none} to{opacity:1;transform:none} }
+      @keyframes speakPulse { from{opacity:1} to{opacity:1} }
+      @keyframes fireJiggle { from{transform:none} to{transform:none} }
+      .cp { animation: none !important; display:none; }
+    /* ─── Land of Grub: Read Ready intro section ──────────── */
+    .grub-intro {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 20px 8px;
+      font-family: 'Nunito', sans-serif;
+      color: var(--text);
+    }
+    .grub-intro .grub-eyebrow {
+      display: inline-block;
+      font-family: 'Fredoka One','Impact',cursive;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      color: #d6418f;
+      background: #fdd5f0;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      text-decoration: none;
+      transition: background 0.16s, color 0.16s, box-shadow 0.16s;
+    }
+    .grub-intro .grub-eyebrow:hover { background:#fbc0e6; }
+    .grub-intro .grub-eyebrow:focus-visible { outline:3px solid var(--teal); outline-offset:3px; }
+    body.dark .grub-intro .grub-eyebrow { background:#4a2a40; color:#ffb3da; }
+    body.dark .grub-intro .grub-eyebrow:hover { background:#5c3450; }
+    .grub-intro h1.grub-title {
+      font-family: 'Fredoka One','Impact',cursive;
+      font-size: clamp(26px, 5vw, 38px);
+      line-height: 1.15;
+      margin: 0 0 6px;
+      color: var(--teal-text);
+    }
+    .grub-intro .grub-sub {
+      font-size: 16px;
+      color: var(--muted);
+      margin: 0 0 18px;
+      font-weight: 600;
+    }
+    .grub-intro p {
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0 0 14px;
+    }
+    .grub-intro .grub-why {
+      background: var(--card);
+      border: 2px solid #fdd5f0;
+      border-radius: 18px;
+      padding: 18px 20px;
+      margin: 18px 0;
+    }
+    body.dark .grub-intro .grub-why { border-color:#4a2a40; }
+    .grub-intro .grub-why h2 {
+      font-family: 'Fredoka One','Impact',cursive;
+      font-size: 17px;
+      margin: 0 0 10px;
+      color: #d6418f;
+    }
+    body.dark .grub-intro .grub-why h2 { color:#ffb3da; }
+    .grub-intro ul.grub-points {
+      margin: 0; padding: 0 0 0 20px;
+      font-size: 14.5px; line-height: 1.7;
+    }
+    .grub-intro ul.grub-points li { margin-bottom: 4px; }
+    .grub-intro .grub-cta {
+      text-align: center;
+      font-family: 'Fredoka One','Impact',cursive;
+      font-size: 15px;
+      color: var(--teal-text);
+      margin: 22px 0 4px;
+    }
+    .grub-intro .grub-divider {
+      width: 60px; height: 4px; border-radius: 4px;
+      background: linear-gradient(90deg,#fdd5f0,#00b4d8);
+      margin: 22px auto 0;
+    }
+    @media (max-width: 480px) {
+      .grub-intro { padding: 20px 16px 4px; }
+      .grub-intro .grub-why { padding: 14px 16px; }
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to flashcards</a>
+<noscript><div style="font-family:sans-serif;padding:40px;text-align:center;font-size:18px">ReadReady requires JavaScript. Please enable it in your browser to use the app.</div></noscript>
+
+<div class="grub-intro">
+  <a class="grub-eyebrow" href="https://thelandofgrub.com">🌱 The Land of Grub</a>
+  <h1 class="grub-title">The Land of Grub Read Ready Initiative</h1>
+  <p class="grub-sub">Free sight word flashcards, built for how kids actually learn to read.</p>
+
+  <p>Just like good nutrition, reading is something that grows one small, repeated bite at a time. Reading proficiency by the end of third grade is one of the strongest known predictors of a child's long-term academic success — and most of that foundation is built on sight words, the common words (<em>the, said, was, because</em>) that kids need to recognize instantly rather than sound out letter by letter.</p>
+
+  <p>The Read Ready Initiative is our free, web-based sight word flashcard tool — made for families to use together at home, in the car, or anywhere a few spare minutes turn into reading practice. No login, no cost, no app store. Just open it and start.</p>
+
+  <div class="grub-why">
+    <h2>Why flashcards actually work</h2>
+    <ul class="grub-points">
+      <li><strong>Active recall, not passive exposure.</strong> Research shows the benefit comes from a child producing the word themselves — not just seeing it — so this tool always asks for a response.</li>
+      <li><strong>It adapts to your child.</strong> Words they know fade into the background; words they're still learning come back around more often, automatically.</li>
+      <li><strong>Words in context, too.</strong> Beyond the flashcard itself, each word comes with an example sentence — because isolated recognition and real reading comprehension are both part of the picture.</li>
+      <li><strong>Most words take just a few repeats.</strong> Most readers commit a new sight word to memory in one to four exposures — so a few minutes, a few times a week, adds up faster than it feels like it should.</li>
+    </ul>
+  </div>
+
+  <p class="grub-cta">👇 Pick a word list below and start your first round — it takes about two minutes.</p>
+  <div class="grub-divider" aria-hidden="true"></div>
+</div>
+
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<div id="confetti-container" aria-hidden="true"></div>
+
+<div id="app">
+
+  <!-- ══ Header ══════════════════════════════════════════ -->
+  <header>
+    <button type="button" class="logo" id="logo-btn" role="heading" aria-level="2" title="Tap 3× to unlock parent controls" aria-label="ReadReady — tap or press 3 times to unlock parent controls" style="cursor:pointer;user-select:none;background:none;border:none;padding:0;font:inherit;color:inherit;">Read<span>Ready</span> ✨</button>
+    <div class="header-controls">
+      <button type="button" class="icon-btn" id="stats-btn"    title="Progress &amp; Stats (T)" aria-label="View progress stats" aria-expanded="false" aria-controls="stats-panel">📊</button>
+      <button type="button" class="icon-btn" id="settings-btn" title="Settings (S)" aria-label="Open settings" aria-expanded="false" aria-controls="settings-panel">⚙️</button>
+      <button type="button" class="icon-btn" id="mute-btn"     title="Mute / Unmute (M)" aria-label="Toggle mute" aria-pressed="false">🔊</button>
+      <button type="button" class="icon-btn" id="dark-btn"     title="Dark mode (D)" aria-label="Toggle dark mode" aria-pressed="false">🌙</button>
+    </div>
+  </header>
+
+  <!-- ══ Stats Panel ══════════════════════════════════════ -->
+  <div id="stats-panel" class="panel" role="region" aria-label="Your progress">
+    <h2 class="panel-title">📊 Your Progress</h2>
+    <div class="stat-grid">
+      <div class="stat-block">
+        <div class="stat-big" id="sp-total">0</div>
+        <div class="stat-lbl">Total Correct</div>
+      </div>
+      <div class="stat-block c-coral">
+        <div class="stat-big" id="sp-streak">0</div>
+        <div class="stat-lbl">Best Streak</div>
+      </div>
+      <div class="stat-block c-green">
+        <div class="stat-big" id="sp-mastered">0</div>
+        <div class="stat-lbl">Words Mastered</div>
+      </div>
+      <div class="stat-block c-gold">
+        <div class="stat-big" id="sp-review">0</div>
+        <div class="stat-lbl">Still Learning</div>
+      </div>
+      <div class="stat-block c-purple">
+        <div class="stat-big" id="sp-sessions">0</div>
+        <div class="stat-lbl">Sessions Done</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-big" id="sp-pct">0%</div>
+        <div class="stat-lbl">Best Score</div>
+      </div>
+    </div>
+    <div id="mastered-section" style="display:none">
+      <div style="font-weight:700;font-size:13px;color:var(--muted);margin-bottom:6px;">✅ Mastered words:</div>
+      <div class="mastered-list" id="mastered-list"></div>
+    </div>
+    <div id="parent-controls" style="display:none; flex-direction:column; gap:8px;">
+      <div style="font-size:11px;color:var(--muted);font-weight:700;text-align:center">🔓 Parent controls unlocked</div>
+      <button type="button" class="stats-reset-btn" onclick="confirmReset()">🗑️ Reset all progress</button>
+      <button type="button" class="stats-reset-btn teal" onclick="exportProgress()">📋 Copy progress summary</button>
+    </div>
+    <button type="button" class="stats-reset-btn muted" id="parent-lock-btn" onclick="showParentHint()">🔒 Parent controls</button>
+  </div>
+
+  <!-- ══ Settings Panel ═══════════════════════════════════ -->
+  <div id="settings-panel" class="panel" role="region" aria-label="Settings">
+    <h2 class="panel-title">⚙️ Settings</h2>
+
+    <div class="settings-row">
+      <label>📚 Word Level</label>
+      <div class="pill-group" role="group" aria-label="Word level">
+        <button type="button" class="pill pill-teal active" data-level="preprimer">Pre-K</button>
+        <button type="button" class="pill pill-teal" data-level="primer">Kindergarten</button>
+        <button type="button" class="pill pill-teal" data-level="grade1">Grade 1</button>
+        <button type="button" class="pill pill-teal" data-level="grade2">Grade 2</button>
+        <button type="button" class="pill pill-teal" data-level="grade3">Grade 3</button>
+        <button type="button" class="pill pill-teal" data-level="all">All</button>
+      </div>
+    </div>
+
+    <div class="settings-row">
+      <label>🃏 Cards per Session</label>
+      <div class="pill-group" role="group" aria-label="Session length">
+        <button type="button" class="pill pill-purple" data-count="10">10</button>
+        <button type="button" class="pill pill-purple active" data-count="15">15</button>
+        <button type="button" class="pill pill-purple" data-count="20">20</button>
+        <button type="button" class="pill pill-purple" data-count="30">30</button>
+      </div>
+    </div>
+
+    <div class="settings-row">
+      <label>🔤 Word Size</label>
+      <div class="pill-group" role="group" aria-label="Word font size">
+        <button type="button" class="pill pill-coral active" data-size="normal">Normal</button>
+        <button type="button" class="pill pill-coral" data-size="lg">Large</button>
+        <button type="button" class="pill pill-coral" data-size="xl">X-Large</button>
+      </div>
+    </div>
+
+    <div class="settings-row">
+      <label for="toggle-autospeak">🔊 Auto-speak word aloud</label>
+      <label class="toggle">
+        <input type="checkbox" id="toggle-autospeak" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+
+    <div class="settings-row">
+      <label for="toggle-phonics">🔡 Show phonics hint</label>
+      <label class="toggle">
+        <input type="checkbox" id="toggle-phonics">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="settings-row">
+      <label for="toggle-emoji">🖼️ Show word picture</label>
+      <label class="toggle">
+        <input type="checkbox" id="toggle-emoji" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="settings-row">
+      <label for="toggle-dyslexic">🔠 Dyslexia-friendly font</label>
+      <label class="toggle">
+        <input type="checkbox" id="toggle-dyslexic">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ══ Progress Row ═════════════════════════════════════ -->
+  <main id="main-content" aria-label="Flashcard session" tabindex="-1">
+  <div class="progress-row" aria-label="Session progress">
+    <div class="progress-top">
+      <span class="progress-label" id="progress-text">Card 1 of 15</span>
+      <span class="progress-label" id="level-label">📗 Pre-K</span>
+    </div>
+    <div id="review-mode-banner" role="status" aria-live="polite" style="display:none;text-align:center;font-size:11px;font-weight:800;color:var(--coral-text);letter-spacing:0.04em;margin-bottom:2px;"></div>
+    <div class="progress-wrap" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Progress">
+      <div id="progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- ══ Flashcard ════════════════════════════════════════ -->
+  <div id="card-area">
+    <div id="flashcard" role="button" tabindex="0" aria-label="Tap or click to hear the word">
+      <div id="level-tag" aria-hidden="true">Pre-K</div>
+      <div id="word-emoji" aria-hidden="true"></div>
+      <div id="word-display" aria-hidden="true">–</div>
+      <p class="tap-hint" aria-hidden="true"><span class="icon">🔊</span> Tap card to hear the word</p>
+    </div>
+  </div>
+
+  <!-- ══ Post-card context (shown after rating) ═══════════ -->
+  <div id="word-context" style="display:none">
+    <div id="phonics-row" style="display:none">
+      <span class="context-label">🔡 How to say it:</span>
+      <div id="phonics-display" aria-label="Phonics breakdown"></div>
+    </div>
+    <div id="sentence-row" style="display:none">
+      <span class="context-label">📖 In a sentence:</span>
+      <div id="sentence-display" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- ══ Feedback ═════════════════════════════════════════ -->
+  <div id="feedback" aria-live="polite"></div>
+
+
+  <!-- ══ Confidence Buttons ══════════════════════════════ -->
+  <div id="confidence-row" role="group" aria-label="How well did you know this word?">
+    <div class="confidence-label">How well did you know it?</div>
+    <div class="confidence-btns">
+      <button type="button" class="conf-btn skip-btn" id="btn-skip" onclick="rate(0)" aria-label="Didn't know it (press 1)">
+        <span class="em">😕</span> Didn't know
+        <span class="kbd-hint">[ 1 ]</span>
+      </button>
+      <button type="button" class="conf-btn ok-btn"   id="btn-ok"   onclick="rate(1)" aria-label="Kind of knew it (press 2)">
+        <span class="em">🙂</span> Kind of!
+        <span class="kbd-hint">[ 2 ]</span>
+      </button>
+      <button type="button" class="conf-btn got-btn"  id="btn-got"  onclick="rate(2)" aria-label="Got it! (press 3)">
+        <span class="em">😄</span> Got it!
+        <span class="kbd-hint">[ 3 ]</span>
+      </button>
+    </div>
+    <div class="sub-action-row">
+      <button type="button" class="sub-btn" onclick="speakWord(state.currentWord)" aria-label="Replay word (press R)">🔊 Replay <span style="opacity:.5;font-size:11px;">[R]</span></button>
+      <button type="button" class="sub-btn" id="phonics-btn" onclick="speakPhonics(state.currentWord)" aria-label="Sound it out (press P)">🔡 Sound it out <span style="opacity:.5;font-size:11px;">[P]</span></button>
+    </div>
+  </div>
+
+  <!-- ══ Next Button ══════════════════════════════════════ -->
+  <button type="button" id="next-btn" onclick="advanceCard()" aria-label="Next card (Space or →)">
+    Next word →<span class="kbd">[ Space / → ]</span>
+  </button>
+
+  <!-- ══ Live Stats Bar ═══════════════════════════════════ -->
+  <div class="live-stats" aria-label="Session stats">
+    <div class="live-stat">
+      <div class="live-num" id="stat-correct">0</div>
+      <div class="live-lbl">✅ Correct</div>
+    </div>
+    <div class="live-stat s-streak">
+      <div class="live-num" id="stat-streak">0</div>
+      <div class="live-lbl">🔥 Streak</div>
+    </div>
+    <div class="live-stat s-review">
+      <div class="live-num" id="stat-review">0</div>
+      <div class="live-lbl">📋 To Review</div>
+    </div>
+  </div>
+
+  <!-- ══ Badges ═══════════════════════════════════════════ -->
+  <div class="badges-section">
+    <div class="badges-title">🏅 Badges</div>
+    <div class="badges-grid" id="badges-grid"></div>
+  </div>
+
+  <!-- ══ Action Buttons ══════════════════════════════════ -->
+  <div class="action-row">
+    <button type="button" class="action-btn btn-shuffle" onclick="startNewSession(false)">🔀 New Round</button>
+    <button type="button" class="action-btn btn-review"  id="btn-review-missed" onclick="startReviewSession()" disabled>📋 Practice Missed</button>
+  </div>
+
+  <!-- ══ Keyboard hint ════════════════════════════════════ -->
+  <div id="kbd-hint">⌨️ <kbd>1</kbd> Didn't know · <kbd>2</kbd> Kind of · <kbd>3</kbd> Got it · <kbd>R</kbd> Replay · <kbd>P</kbd> Phonics · <kbd>Space/→</kbd> Next · <kbd>M</kbd> Mute · <kbd>S</kbd> Settings · <kbd>T</kbd> Stats · <kbd>D</kbd> Dark · <kbd>Esc</kbd> Close panel</div>
+
+  <!-- ══ End Screen ═══════════════════════════════════════ -->
+  <div id="end-screen" aria-live="polite">
+    <div class="end-card">
+      <div class="end-title" id="end-title">🎉 Round Complete!</div>
+      <div class="end-score" id="end-score">0/15</div>
+      <div id="end-kindof" style="display:none;font-size:15px;font-weight:700;color:var(--gold-text);margin-top:2px"></div>
+      <div class="end-sub"   id="end-sub">Keep it up!</div>
+      <div id="end-streak" style="font-size:14px;font-weight:700;color:var(--coral-text);margin-top:6px;display:none"></div>
+      <div id="new-words-section" style="display:none">
+        <p style="font-weight:700;margin-top:14px;margin-bottom:7px;font-size:14px;color:var(--green-text)">✨ Words you learned today:</p>
+        <div class="missed-list" id="new-words-list"></div>
+      </div>
+      <div id="missed-words-section" style="display:none">
+        <p style="font-weight:700;margin-top:16px;margin-bottom:7px;font-size:14px;color:var(--muted)">📋 Words to practice:</p>
+        <div class="missed-list" id="missed-words-list"></div>
+      </div>
+    </div>
+    <div class="end-actions">
+      <button type="button" class="btn-new-round"       onclick="startNewSession(false, true)">🔀 New Round</button>
+      <button type="button" class="btn-practice-missed" id="btn-end-review" onclick="startReviewSession()">📋 Practice Missed</button>
+    </div>
+  </div>
+
+  </main><!-- /main-content -->
+
+</div><!-- /app -->
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   PWA MANIFEST (injected inline)
+══════════════════════════════════════════════════════════ */
+(function() {
+  const manifest = {
+    name: 'Read Ready — Sight Word Flashcards',
+    short_name: 'ReadReady',
+    start_url: '.',
+    display: 'standalone',
+    background_color: '#0d1b2e',
+    theme_color: '#1a1a2e',
+    icons: [{ src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='32' fill='%2300b4d8'/%3E%3Ctext x='96' y='130' font-family='Arial' font-weight='bold' font-size='100' text-anchor='middle' fill='white'%3ERR%3C/text%3E%3C/svg%3E", sizes: '192x192', type: 'image/svg+xml' }]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+  document.getElementById('pwa-manifest').href = URL.createObjectURL(blob);
+})();
+
+/* ══════════════════════════════════════════════════════════
+   DATA — Dolch Sight Words by Level
+══════════════════════════════════════════════════════════ */
+const WORDS = {
+  preprimer: ["I","a","and","away","big","blue","can","come","down","find","for","funny","go","help","here","in","is","it","jump","little","look","make","me","my","not","one","play","red","run","said","see","the","three","to","two","up","we","where","yellow","you"],
+  primer: ["all","am","are","at","ate","be","black","brown","but","came","did","do","eat","four","get","good","have","he","into","like","must","new","no","now","on","our","out","please","pretty","ran","ride","saw","say","she","so","soon","that","then","there","they","this","too","under","want","was","water","well","went","what","white","who","will","with","yes"],
+  grade1: ["after","again","also","an","any","as","ask","by","could","every","fly","from","give","going","had","has","her","him","his","how","just","know","let","live","may","most","of","old","once","open","over","put","round","same","should","some","still","stop","take","thank","them","think","through","walk","were","when"],
+  grade2: ["always","around","because","been","before","best","both","buy","call","cold","does","don't","fast","first","five","found","gave","goes","green","hear","its","made","many","might","off","or","pull","read","right","sing","sit","sleep","tell","their","these","those","upon","us","use","very","wash","which","why","wish","work","would","write","your"],
+  grade3: ["about","across","against","better","bring","carry","clean","cried","cut","dog","done","draw","drink","eight","fall","far","full","got","grow","hold","hot","hurt","if","keep","kind","laugh","light","long","much","myself","never","only","own","pick","seven","shall","short","show","since","six","small","start","ten","today","together","try","warm"]
+};
+
+/* ── Example sentences ── */
+const SENTENCES = {
+  "a":"I saw a big dog.","and":"You and I are friends.","away":"The bird flew away.","big":"That is a big elephant!","blue":"The sky is blue.","can":"I can jump high.","come":"Come and play with me!","down":"The sun goes down at night.","find":"Can you find the hidden star?","for":"This gift is for you.","funny":"That joke was so funny!","go":"Let's go to the park.","help":"Can you help me please?","here":"Come over here!","I":"I love to read books.","in":"The cat is in the box.","is":"This is my pencil.","it":"It is raining outside.","jump":"I can jump so high!","little":"She has a little bunny.","look":"Look at that rainbow!","make":"Let's make a sandcastle.","me":"Come with me!","my":"This is my backpack.","not":"I am not tired.","one":"I have one cookie left.","play":"Let's go play outside.","red":"The apple is red.","run":"Can you run fast?","said":"She said hello to me.","see":"I can see the moon.","the":"The dog ran home.","three":"I have three pets.","to":"I like to sing.","two":"I have two hands.","up":"Look up at the stars!","we":"We are a great team.","where":"Where is my hat?","yellow":"The sun is yellow.","you":"I like you!","all":"We are all friends.","am":"I am happy today.","are":"We are a team.","at":"Look at the butterfly.","ate":"She ate a big lunch.","be":"You will be great!","black":"My cat is black.","brown":"The bear is brown.","but":"I'm tired but happy.","came":"She came to my party.","did":"Did you see that?","do":"Let's do our best.","eat":"Let's eat some fruit.","four":"I have four crayons.","get":"Go get your shoes.","good":"You did a good job!","have":"I have a new book.","he":"He likes to draw.","into":"The frog jumped into the pond.","like":"I like ice cream.","must":"We must be kind.","new":"I got a new toy.","no":"No, thank you.","now":"Let's start now!","on":"The cat sat on the mat.","our":"This is our classroom.","out":"The dog ran out.","please":"Yes please, thank you.","pretty":"That flower is pretty.","ran":"The dog ran fast.","ride":"I love to ride my bike.","saw":"I saw a falling star.","say":"What did you say?","she":"She is my best friend.","so":"I am so excited!","soon":"Lunch will be ready soon.","that":"That is a great idea!","there":"Look over there!","they":"They like to swim.","this":"This book is so fun.","too":"Me too!","under":"The cat hid under the bed.","want":"I want to learn more.","was":"It was a sunny day.","well":"You did very well!","went":"We went to the library.","what":"What is your name?","white":"Snow is white.","who":"Who is at the door?","will":"I will try my best.","with":"Come play with me.","yes":"Yes, I can do it!","after":"We'll play after lunch.","again":"Can we read it again?","an":"I see an ant.","any":"Do you have any crayons?","as":"She runs as fast as a rabbit.","ask":"Don't be afraid to ask.","by":"Sit by me.","could":"I could see the stars.","every":"Every day I read.","fly":"Birds can fly high.","from":"I got a letter from my friend.","give":"Give it your best!","going":"We are going to the park.","had":"She had a great idea.","has":"He has a red hat.","her":"This is her book.","him":"I gave him a high-five.","his":"That is his dog.","how":"How did you do that?","just":"I just learned a new word!","know":"I know that word!","let":"Let me try!","live":"Fish live in water.","may":"May I go outside?","of":"A glass of milk.","old":"This is an old tree.","once":"Once upon a time...","open":"Open the book to page one.","over":"The bird flew over the house.","put":"Put the book on the shelf.","round":"The wheel is round.","some":"Can I have some more?","stop":"Stop and look both ways.","take":"Take a deep breath.","thank":"Thank you so much!","them":"I gave them cookies.","think":"I think you're amazing!","walk":"Let's walk to school.","were":"We were best friends.","when":"When does school start?","always":"I always brush my teeth.","around":"We walked around the park.","because":"I smiled because I was happy.","been":"Have you been to the library?","before":"Wash hands before eating.","best":"You are my best friend!","both":"I like both animals.","buy":"Let's buy some apples.","call":"Call me on the phone.","cold":"It is cold outside.","does":"Does she like cats?","don't":"Don't forget your hat.","fast":"The cheetah runs fast.","first":"I finished first!","five":"I have five fingers on each hand.","found":"I found a four-leaf clover!","gave":"She gave me a hug.","goes":"She goes to school each day.","green":"The frog is green.","its":"The dog wagged its tail.","made":"She made a great picture.","many":"How many stars are there?","off":"The light is off.","or":"Do you want an apple or orange?","pull":"Pull the door open.","read":"I love to read.","right":"Turn right at the corner.","sing":"I love to sing songs.","sit":"Please sit down.","sleep":"Bears sleep in winter.","tell":"Tell me a story.","their":"That is their house.","these":"These are my books.","those":"Those flowers are beautiful.","upon":"Once upon a time...","us":"Come with us!","use":"I use a pencil to write.","very":"That was very kind.","wash":"Wash your hands.","which":"Which one do you like?","why":"Why is the sky blue?","wish":"I wish upon a star.","work":"I work hard every day.","would":"Would you like some juice?","write":"I love to write stories.","your":"What is your favorite color?","about":"Tell me about your day.","better":"Today is better than yesterday!","bring":"Bring your backpack.","carry":"I can carry the bag.","clean":"Let's keep it clean.","cut":"Cut along the dotted line.","done":"I am done with my work.","draw":"I love to draw rainbows.","drink":"Drink lots of water.","eight":"I have eight crayons.","fall":"Leaves fall in autumn.","far":"The stars are far away.","full":"My belly is full!","got":"I got a perfect score!","grow":"Plants grow in the sun.","hold":"Hold my hand.","hot":"The soup is hot.","hurt":"I hurt my knee.","if":"If you try, you can!","keep":"Keep up the great work!","kind":"Be kind to everyone.","laugh":"I love to laugh.","light":"The room is full of light.","long":"It is a long road.","much":"Thank you so much!","myself":"I did it myself!","never":"Never give up.","only":"You are the only one.","own":"I have my own book.","pick":"Pick your favorite color.","seven":"I see seven stars.","shall":"Shall we read together?","show":"Show me what you know!","six":"Six little ducks.","small":"A small seed grows big.","start":"Let's start reading!","ten":"Count to ten!","today":"Today is a great day!","together":"We learn better together.","try":"Always try your best.","warm":"It feels warm in the sun.",
+  "across":"We walked across the bridge.",
+  "against":"She leaned against the wall.",
+  "also":"I like cats and I also like dogs.",
+  "cried":"The baby cried for her mom.",
+  "dog":"The dog ran fast across the yard.",
+  "hear":"Can you hear the bird sing?",
+  "might":"We might go to the park today.",
+  "most":"Most of the kids came to play.",
+  "same":"We have the same red shoes.",
+  "short":"The short boy could not reach the shelf.",
+  "should":"You should eat your food.",
+  "since":"I have been happy since my birthday.",
+  "still":"Please sit still during the story.",
+  "then":"We will eat, and then we will play.",
+  "through":"We walked through the park.",
+  "water":"I drink water every day."
+};
+
+/* ── Word emoji associations ── */
+const EMOJIS = {
+  "a":"🅰️","and":"🔗","away":"👋🏽","big":"🐘","blue":"💙","can":"✅","come":"🤗","down":"⬇️","find":"🔍","for":"🎁","funny":"😄","go":"🏃🏽","help":"🤝🏽","here":"📍","I":"🙋🏽","in":"📦","is":"❓","it":"☝🏽","jump":"🐸","little":"🐭","look":"👀","make":"🔨","me":"🙋🏽‍♀️","my":"💛","not":"🚫","one":"1️⃣","play":"⚽","red":"❤️","run":"💨","said":"💬","see":"👁️","the":"📖","three":"3️⃣","to":"➡️","two":"2️⃣","up":"⬆️","we":"👫🏽","where":"🗺️","yellow":"🌟","you":"😊","all":"🌍","am":"😁","are":"🌈","at":"📌","ate":"🍽️","be":"🐝","black":"🖤","brown":"🤎","but":"🔄","came":"🚶🏽","did":"✔️","do":"💪🏽","eat":"🍎","four":"4️⃣","get":"🙌🏽","good":"👍🏽","have":"🤲🏽","he":"👦🏽","into":"🚪","like":"😍","must":"⚠️","new":"🆕","no":"❌","now":"⏰","on":"🔛","our":"🏠","out":"🏃🏽‍♂️","please":"🙏🏽","pretty":"🌸","ran":"🥇","ride":"🚲","saw":"🔭","say":"💭","she":"👧🏽","so":"⭐","soon":"⏳","that":"👉","there":"🏁","they":"👥","this":"👆🏽","too":"➕","under":"🔽","want":"🌠","was":"🕰️","well":"🌊","went":"✈️","what":"❔","white":"🤍","who":"🤔","will":"🔮","with":"🫂","yes":"👏🏽","after":"🌅","again":"🔁","an":"🐜","any":"🎲","as":"⚡","ask":"🙋🏽‍♂️","by":"🤸🏽","could":"💫","every":"🔢","fly":"🦋","from":"📬","give":"🎀","going":"🚶🏽‍♀️","had":"📜","has":"💼","her":"👩🏽","him":"🧒🏽","his":"🧑🏽","how":"🤷🏽","just":"⚡","know":"💡","let":"🔓","live":"🌱","may":"🌺","of":"📚","old":"🌳","once":"🕯️","open":"🔑","over":"🌉","put":"📥","round":"⭕","some":"🍪","stop":"🛑","take":"✋🏽","thank":"🙏🏽","them":"👥","think":"🧠","walk":"🚶🏽‍♂️","were":"🗓️","when":"📅","always":"♾️","around":"🌀","because":"🧩","been":"🏅","before":"⏮️","best":"🏆","both":"👐🏽","buy":"🛒","call":"📞","cold":"❄️","does":"🔎","don't":"✋🏽🚫","fast":"🐆","first":"🥇","five":"5️⃣","found":"💎","gave":"🤲🏽","goes":"🚀","green":"💚","its":"🐾","made":"🛠️","many":"🌊","off":"🔌","or":"🔀","pull":"🏋🏽","read":"📕","right":"↗️","sing":"🎵","sit":"🪑","sleep":"😴","tell":"📢","their":"🏡","these":"👇🏽","those":"👈","upon":"🏰","us":"👨🏽‍👩🏽‍👦🏽","use":"🔧","very":"💯","wash":"🧼","which":"🤷🏽‍♀️","why":"❓","wish":"🌠","work":"🏗️","would":"🤞🏽","write":"✏️","your":"👆🏽","about":"📝","better":"📈","bring":"🎒","carry":"🛍️","clean":"🧹","cut":"✂️","done":"🎯","draw":"🎨","drink":"💧","eight":"8️⃣","fall":"🍂","far":"🌌","full":"🪣","got":"🤙🏽","grow":"🌻","hold":"🤲🏽","hot":"🔥","hurt":"🩹","if":"🌀","keep":"🔒","kind":"💝","laugh":"😂","light":"🔆","long":"📏","much":"💎","myself":"🪞","never":"⛔","only":"☝🏽","own":"🏷️","pick":"🤌🏽","seven":"7️⃣","shall":"📋","show":"🎭","six":"6️⃣","small":"🐞","start":"▶️","ten":"🔟","today":"☀️","together":"🤝🏽","try":"💪🏽","warm":"🌤️",
+  "across":"🌉",
+  "against":"🤜🏽",
+  "also":"➕",
+  "cried":"😢",
+  "dog":"🐕",
+  "hear":"👂🏽",
+  "might":"🤔",
+  "most":"🏆",
+  "same":"🪞",
+  "short":"📏",
+  "should":"💭",
+  "since":"⏰",
+  "still":"🧘",
+  "then":"➡️",
+  "through":"🚇",
+  "water":"💧"
+};
+
+/* ── Simple phonics breakdown ── */
+const PHONICS = {
+  // Pre-Primer
+  "a":"a","and":"a-n-d","away":"a-w-ay","big":"b-i-g","blue":"b-l-ue","can":"c-a-n",
+  "come":"c-o-me","down":"d-ow-n","find":"f-i-nd","for":"f-or","funny":"f-u-nn-y",
+  "go":"g-o","help":"h-e-lp","here":"h-ere","I":"I","in":"i-n","is":"i-s","it":"i-t",
+  "jump":"j-u-mp","little":"l-i-tt-le","look":"l-oo-k","make":"m-a-ke","me":"m-e",
+  "my":"m-y","not":"n-o-t","one":"w-u-n","play":"p-l-ay","red":"r-e-d","run":"r-u-n",
+  "said":"s-ai-d","see":"s-ee","the":"th-e","three":"thr-ee","to":"t-o","two":"t-w-o",
+  "up":"u-p","we":"w-e","where":"wh-ere","yellow":"y-e-ll-ow","you":"y-ou",
+  // Primer
+  "all":"a-ll","am":"a-m","are":"ar-e","at":"a-t","ate":"a-te","be":"b-e",
+  "black":"b-l-a-ck","brown":"b-r-ow-n","but":"b-u-t","came":"c-a-me","did":"d-i-d",
+  "do":"d-o","eat":"ea-t","four":"f-our","get":"g-e-t","good":"g-oo-d","have":"h-a-ve",
+  "he":"h-e","into":"i-n-t-o","like":"l-i-ke","must":"m-u-st","new":"n-ew","no":"n-o",
+  "now":"n-ow","on":"o-n","our":"our","out":"ou-t","please":"p-l-ea-se",
+  "pretty":"p-r-e-tt-y","ran":"r-a-n","ride":"r-i-de","saw":"s-aw","say":"s-ay",
+  "she":"sh-e","so":"s-o","soon":"s-oon","that":"th-a-t","there":"th-ere",
+  "they":"th-ey","this":"th-i-s","too":"t-oo","under":"u-n-d-er","want":"w-a-nt",
+  "was":"w-a-s","well":"w-e-ll","went":"w-e-nt","what":"wh-a-t","white":"wh-i-te",
+  "who":"wh-o","will":"w-i-ll","with":"w-i-th","yes":"y-e-s",
+  // Grade 1
+  "after":"a-f-ter","again":"a-g-ai-n","an":"a-n","any":"a-n-y","as":"a-s",
+  "ask":"a-s-k","by":"b-y","could":"c-ou-ld","every":"e-v-er-y","fly":"f-l-y",
+  "from":"fr-o-m","give":"g-i-ve","going":"g-o-ing","had":"h-a-d","has":"h-a-s",
+  "her":"h-er","him":"h-i-m","his":"h-i-s","how":"h-ow","just":"j-u-st",
+  "know":"kn-ow","let":"l-e-t","live":"l-i-ve","may":"m-ay","of":"o-v","old":"o-ld",
+  "once":"w-u-n-s","open":"o-p-en","over":"o-v-er","put":"p-u-t","round":"r-ou-nd",
+  "some":"s-u-me","stop":"s-t-o-p","take":"t-a-ke","thank":"th-a-nk","them":"th-e-m",
+  "think":"th-i-nk","walk":"w-aw-k","were":"w-ere","when":"wh-e-n",
+  // Grade 2
+  "always":"a-l-w-ay-s","around":"a-r-ow-nd","because":"be-c-au-se","been":"b-ee-n",
+  "before":"be-f-ore","best":"b-e-st","both":"b-o-th","buy":"b-y","call":"c-a-ll",
+  "cold":"c-o-ld","does":"d-u-z","don't":"d-o-n-t","fast":"f-a-st","first":"f-ir-st",
+  "five":"f-i-ve","found":"f-ow-nd","gave":"g-a-ve","goes":"g-o-z","green":"gr-ee-n",
+  "its":"i-t-s","made":"m-a-de","many":"m-a-n-y","off":"o-ff","or":"or",
+  "pull":"p-u-ll","read":"r-ee-d","right":"r-i-te","sing":"s-i-ng","sit":"s-i-t",
+  "sleep":"s-l-ee-p","tell":"t-e-ll","their":"th-air","these":"th-ee-z",
+  "those":"th-o-ze","upon":"u-p-o-n","us":"u-s","use":"y-oo-z","very":"v-e-r-y",
+  "wash":"w-o-sh","which":"wh-i-ch","why":"wh-y","wish":"w-i-sh","work":"w-er-k",
+  "would":"w-oo-d","write":"r-i-te","your":"y-or",
+  // Grade 3
+  "about":"a-b-ow-t","better":"b-e-tt-er","bring":"b-r-i-ng","carry":"c-a-r-y",
+  "clean":"c-l-ee-n","cut":"c-u-t","done":"d-u-n","draw":"d-r-aw","drink":"d-r-i-nk",
+  "eight":"ay-t","fall":"f-a-ll","far":"f-ar","full":"f-u-ll","got":"g-o-t",
+  "grow":"gr-o","hold":"h-o-ld","hot":"h-o-t","hurt":"h-er-t","if":"i-f",
+  "keep":"k-ee-p","kind":"k-i-nd","laugh":"l-a-f","light":"l-i-te","long":"l-o-ng",
+  "much":"m-u-ch","myself":"m-y-s-e-lf","never":"n-e-v-er","only":"o-n-l-y",
+  "own":"o-n","pick":"p-i-ck","seven":"s-e-v-en","shall":"sh-a-ll","show":"sh-o",
+  "six":"s-i-x","small":"s-m-a-ll","start":"s-t-ar-t","ten":"t-e-n",
+  "today":"t-o-d-ay","together":"t-o-g-e-th-er","try":"t-r-y","warm":"w-ar-m",
+  "across":"a-cr-oss",
+  "against":"a-g-ai-nst",
+  "also":"al-so",
+  "cried":"cr-ied",
+  "dog":"d-o-g",
+  "hear":"h-ear",
+  "might":"m-ight",
+  "most":"m-o-st",
+  "same":"s-a-me",
+  "short":"sh-ort",
+  "should":"sh-ould",
+  "since":"s-i-nce",
+  "still":"st-i-ll",
+  "then":"th-e-n",
+  "through":"thr-ough",
+  "water":"w-a-t-er"
+};
+
+/* ══════════════════════════════════════════════════════════
+   BADGE DEFINITIONS
+══════════════════════════════════════════════════════════ */
+const BADGES = [
+  { id:'b1',  icon:'⭐', name:'First Star',    desc:'5 correct answers',       threshold:5    },
+  { id:'b2',  icon:'🏅', name:'Bronze',        desc:'10 correct answers',      threshold:10   },
+  { id:'b3',  icon:'🥉', name:'Silver',        desc:'20 correct answers',      threshold:20   },
+  { id:'b4',  icon:'🥈', name:'Gold',          desc:'30 correct answers',      threshold:30   },
+  { id:'b5',  icon:'🥇', name:'Champion',      desc:'50 correct answers',      threshold:50   },
+  { id:'b6',  icon:'🏆', name:'Legend',        desc:'100 correct answers',     threshold:100  },
+  { id:'b7',  icon:'🔥', name:'On Fire',       desc:'5-word streak',           streakReq:5    },
+  { id:'b8',  icon:'💯', name:'Perfect Round', desc:'100% in one round',       perfect:true   },
+  { id:'b9',  icon:'📚', name:'Bookworm',      desc:'5 sessions completed',    sessionsReq:5  },
+  { id:'b10', icon:'🌟', name:'Star Reader',   desc:'10 words learned',       masteredReq:10 },
+  { id:'b11', icon:'📗', name:'Pre-K Pro',     desc:'Learn all Pre-K words',  levelReq:'preprimer' },
+  { id:'b12', icon:'📘', name:'Kindergarten Pro',    desc:'Learn all Kindergarten words', levelReq:'primer'    },
+  { id:'b13', icon:'📙', name:'Grade 1 Pro',   desc:'Learn all Grade 1 words',levelReq:'grade1'    },
+  { id:'b14', icon:'📕', name:'Grade 2 Pro',   desc:'Learn all Grade 2 words',levelReq:'grade2'    },
+  { id:'b15', icon:'📓', name:'Grade 3 Pro',   desc:'Learn all Grade 3 words',levelReq:'grade3'    },
+  { id:'b16', icon:'🎓', name:'Grand Champion',  desc:'Learn all Pre-K thru Grade 3 words',allLevelsReq:true  },
+];
+
+/* ══════════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════════ */
+const state = {
+  // Settings
+  level:        'preprimer',
+  sessionCount: 15,
+  showSentence: true,
+  showPhonics:  false,
+  showEmoji:    true,
+  autoSpeak:    false,
+  darkMode:     true,
+  dyslexic:     false,
+  wordSize:     'normal',
+  muted:        false,
+
+  // Learning
+  queue:        [],
+  leitner:      {},      // word → box 1/2/3
+  reviewQueue:  [],      // words still needing practice
+
+  // Current card
+  cardIndex:    0,
+  currentWord:  '',
+  rated:        false,   // ← guard: prevents double-rating
+
+  // Timers
+  _autoSpeakTimer: null,
+
+  // Session stats
+  sessionCorrect:  0,
+  sessionKindOf:   0,
+  sessionTotal:    0,
+  sessionMissed:   [],
+  sessionNewWords: [],
+  sessionBestStreak: 0,
+
+  // Persistent stats
+  totalCorrect:   0,
+  currentStreak:  0,
+  bestStreak:     0,
+  sessionsCount:  0,
+  bestPct:        0,
+  earnedBadges:   new Set(),
+};
+
+/* ══════════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════════ */
+function init() {
+  buildBadges();
+  loadFromStorage();
+  applySettings();
+  bindEvents();
+  startNewSession(false, true);
+}
+
+function buildBadges() {
+  const grid = document.getElementById('badges-grid');
+  grid.innerHTML = '';
+  BADGES.forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'badge-item';
+    el.id = b.id;
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label', `${b.name}: ${b.desc}`);
+    el.setAttribute('title', b.desc);
+    el.innerHTML = `<span class="badge-icon" aria-hidden="true">${b.icon}</span><span class="badge-name">${b.name}</span><span class="badge-tooltip" aria-hidden="true">${b.desc}</span>`;
+    // Tap/click/Enter speaks the badge so children know what they earned
+    const speakBadge = () => {
+      if (state.muted) return;
+      if (!window.speechSynthesis) return;
+      try {
+        window.speechSynthesis.cancel();
+        const earned = el.classList.contains('earned');
+        const msg = earned ? `${b.name}! ${b.desc}` : `Not yet. ${b.desc}`;
+        const u = new SpeechSynthesisUtterance(msg);
+        u.rate = 0.9; u.pitch = 1.1;
+        const v = getVoice(); if (v) u.voice = v;
+        window.speechSynthesis.speak(u);
+      } catch(e) {}
+    };
+    el.addEventListener('click', speakBadge);
+    el.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); speakBadge(); }
+    });
+    grid.appendChild(el);
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   STORAGE
+══════════════════════════════════════════════════════════ */
+function loadFromStorage() {
+  let d = {};
+  try {
+    const raw = localStorage.getItem('readready_v3');
+    if (raw) d = JSON.parse(raw);
+  } catch(e) {
+    // Corrupted or unreadable storage — start fresh rather than mixing defaults with bad data
+    console.warn('ReadReady: storage parse failed, starting fresh.', e);
+    try { localStorage.removeItem('readready_v3'); } catch(_) {}
+    d = {};
+  }
+  const _safeInt = (v, min, max, def) => { const n = Math.floor(Number(v)); return (isFinite(n) && n >= min && n <= max) ? n : def; };
+  state.totalCorrect  = _safeInt(d.totalCorrect,  0, 999999, 0);
+  state.bestStreak    = _safeInt(d.bestStreak,     0, 999999, 0);
+  state.sessionsCount = _safeInt(d.sessionsCount,  0, 999999, 0);
+  state.bestPct       = _safeInt(d.bestPct,        0, 100,    0);
+  const _validBadgeIds = new Set(BADGES.map(b => b.id));
+  state.earnedBadges  = new Set((d.earnedBadges || []).filter(id => _validBadgeIds.has(id)));
+  // Security: sanitise leitner keys and reviewQueue against the known word allowlist.
+  // A tampered localStorage entry with arbitrary keys (e.g. '<img onerror=…>') would
+  // otherwise reach innerHTML when building the mastered/missed word lists.
+  const _allKnownWords = new Set(Object.values(WORDS).flat());
+  const _rawLeitner = (d.leitner && typeof d.leitner === 'object') ? d.leitner : {};
+  state.leitner = Object.fromEntries(
+    Object.entries(_rawLeitner).filter(([k, v]) => _allKnownWords.has(k) && [1,2,3].includes(Number(v)))
+  );
+  const _rawQueue = Array.isArray(d.reviewQueue) ? d.reviewQueue : [];
+  state.reviewQueue = _rawQueue.filter(w => typeof w === 'string' && _allKnownWords.has(w));
+  const _validLevels   = new Set(['preprimer','primer','grade1','grade2','grade3','all']);
+  const _validSizes    = new Set(['normal','lg','xl']);
+  state.level         = _validLevels.has(d.level)    ? d.level    : 'preprimer';
+  state.sessionCount  = _safeInt(d.sessionCount,   5, 30,     15);
+  state.showSentence  = d.showSentence  !== false;
+  state.showPhonics   = d.showPhonics   || false;
+  state.showEmoji     = d.showEmoji     !== false;
+  state.autoSpeak     = d.autoSpeak     !== undefined ? !!d.autoSpeak : false;
+  state.darkMode      = d.darkMode      !== undefined ? !!d.darkMode : true;
+  state.dyslexic      = d.dyslexic      || false;
+  state.wordSize      = _validSizes.has(d.wordSize)   ? d.wordSize  : 'normal';
+  state.muted         = d.muted         || false;
+  state.earnedBadges.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('earned');
+  });
+}
+
+let _saveTimer = null;
+function save() {
+  // Debounce: write at most once per 400ms to avoid jank on slow mobile
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(_doSave, 400);
+}
+function _doSave() {
+  try {
+    localStorage.setItem('readready_v3', JSON.stringify({
+      totalCorrect:  state.totalCorrect,
+      bestStreak:    state.bestStreak,
+      sessionsCount: state.sessionsCount,
+      bestPct:       state.bestPct,
+      earnedBadges:  [...state.earnedBadges],
+      leitner:       state.leitner,
+      reviewQueue:   state.reviewQueue,
+      level:         state.level,
+      sessionCount:  state.sessionCount,
+      showSentence:  state.showSentence,
+      showPhonics:   state.showPhonics,
+      showEmoji:     state.showEmoji,
+      autoSpeak:     state.autoSpeak,
+      darkMode:      state.darkMode,
+      dyslexic:      state.dyslexic,
+      wordSize:      state.wordSize,
+      muted:         state.muted,
+    }));
+  } catch(e) {}
+}
+
+function exportProgress() {
+  const mastered   = Object.entries(state.leitner).filter(([,v]) => v >= 3).map(([k]) => k);
+  const learning   = Object.entries(state.leitner).filter(([,v]) => v === 2).map(([k]) => k);
+  const review     = state.reviewQueue;
+  const today      = new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+  const levelNames = {preprimer:'Pre-K',primer:'Primer',grade1:'Grade 1',grade2:'Grade 2',grade3:'Grade 3',all:'All Levels'};
+  const lines = [
+    `📚 Read Ready Progress Report — ${today}`,
+    `📗 Current word level: ${levelNames[state.level] || state.level}`,
+    ``,
+    `✅ Total correct answers: ${state.totalCorrect}`,
+    `🔥 Best streak: ${state.bestStreak}`,
+    `📅 Sessions completed: ${state.sessionsCount}`,
+    `🏆 Best round score: ${state.bestPct}%`,
+    ``,
+    `✨ Words mastered (${mastered.length}): ${mastered.join(', ') || 'none yet'}`,
+    `📖 Words in progress (${learning.length}): ${learning.join(', ') || 'none'}`,
+    `📋 Words to review (${review.length}): ${review.join(', ') || 'none'}`,
+    ``,
+    `🏅 Badges earned: ${[...state.earnedBadges].map(id => { const b = BADGES.find(b => b.id === id); return b ? b.icon + ' ' + b.name : ''; }).filter(Boolean).join(', ') || 'none yet'}`,
+  ];
+  const text = lines.join('\n');
+  // iOS Safari doesn't support <a download> for blob URLs — it opens in a new tab.
+  // Detect iOS and go straight to clipboard; fall back to download on other platforms.
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const doDownload = () => {
+    try {
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = `ReadReady_Progress_${new Date().toISOString().slice(0,10)}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Progress report downloaded! 📄');
+    } catch(_) {
+      showToast('Could not export — please try a different browser.', 4000);
+    }
+  };
+  if (isIOS) {
+    // On iOS, clipboard is the most reliable path
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text)
+        .then(() => showToast('Progress copied to clipboard! 📋'))
+        .catch(() => showToast('Could not copy — try a different browser.', 4000));
+    } else {
+      showToast('Could not copy — try Safari with clipboard access.', 4000);
+    }
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text)
+      .then(() => showToast('Progress summary copied to clipboard! 📋'))
+      .catch(doDownload);
+  } else {
+    doDownload();
+  }
+}
+
+function unlockParentControls() {
+  document.getElementById('parent-controls').style.display = 'flex';
+  document.getElementById('parent-lock-btn').style.display = 'none';
+  // Open stats panel so parent can see the controls
+  const statsPanel = document.getElementById('stats-panel');
+  if (!statsPanel.classList.contains('open')) {
+    document.getElementById('stats-btn').click();
+  }
+  // Re-lock after 30 seconds
+  setTimeout(() => {
+    document.getElementById('parent-controls').style.display = 'none';
+    document.getElementById('parent-lock-btn').style.display = '';
+    // Return focus to logo button so keyboard users aren't stranded
+    const logoBtn = document.getElementById('logo-btn');
+    if (logoBtn && document.activeElement && document.getElementById('parent-controls').contains(document.activeElement)) {
+      logoBtn.focus();
+    }
+  }, 30000);
+}
+
+function showParentHint() {
+  showToast('Tap the ReadReady ✨ logo 3× quickly to unlock parent controls', 3500);
+}
+
+function confirmReset() {
+  // Always use our own modal — see startNewSession() for why relying on
+  // window.confirm() throwing when blocked is unreliable and can cause
+  // this action to silently do nothing in restricted/embedded contexts.
+  const msg = document.createElement('div');
+  msg.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99999;display:flex;align-items:center;justify-content:center;';
+  msg.innerHTML = `<div role="dialog" aria-modal="true" aria-labelledby="_reset_title" style="background:var(--card);border-radius:20px;padding:28px 24px;max-width:300px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+    <div style="font-size:28px;margin-bottom:8px">⚠️</div>
+    <div id="_reset_title" style="font-weight:800;font-size:16px;margin-bottom:6px">Reset all progress?</div>
+    <div style="color:var(--muted);font-size:13px;margin-bottom:20px">This cannot be undone.</div>
+    <div style="display:flex;gap:10px">
+      <button type="button" id="_reset_cancel" style="flex:1;padding:10px;border:2px solid var(--muted);border-radius:12px;background:transparent;font-weight:800;cursor:pointer;color:var(--muted)">Cancel</button>
+      <button type="button" id="_reset_confirm" style="flex:1;padding:10px;border:none;border-radius:12px;background:var(--coral);color:#fff;font-weight:800;cursor:pointer">Reset</button>
+    </div>
+  </div>`;
+  document.body.appendChild(msg);
+  const cancelBtn  = msg.querySelector('#_reset_cancel');
+  const confirmBtn = msg.querySelector('#_reset_confirm');
+  confirmBtn.focus();
+  // Focus trap: keep Tab inside the two buttons
+  msg.addEventListener('keydown', ev => {
+    if (ev.key === 'Tab') {
+      ev.preventDefault();
+      (document.activeElement === confirmBtn ? cancelBtn : confirmBtn).focus();
+    }
+    if (ev.key === 'Escape') { msg.remove(); }
+  });
+  cancelBtn.onclick  = () => msg.remove();
+  confirmBtn.onclick = () => { try { localStorage.removeItem('readready_v3'); } catch(_) {} location.reload(); };
+}
+
+/* ══════════════════════════════════════════════════════════
+   SETTINGS & EVENTS
+══════════════════════════════════════════════════════════ */
+function applySettings() {
+  document.body.classList.toggle('dark',     state.darkMode);
+  document.body.classList.toggle('dyslexic', state.dyslexic);
+  document.body.classList.remove('font-lg','font-xl');
+  if (state.wordSize === 'lg')  document.body.classList.add('font-lg');
+  if (state.wordSize === 'xl')  document.body.classList.add('font-xl');
+
+  // Update browser chrome colour to match dark/light mode
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeMeta) themeMeta.setAttribute('content', state.darkMode ? '#1a1a2e' : '#6c5ce7');
+
+  // toggle-sentence removed — sentence is always shown
+  document.getElementById('toggle-phonics').checked  = state.showPhonics;
+  document.getElementById('toggle-emoji').checked    = state.showEmoji;
+  document.getElementById('toggle-autospeak').checked = state.autoSpeak;
+  document.getElementById('toggle-dyslexic').checked = state.dyslexic;
+
+  const darkBtn = document.getElementById('dark-btn');
+  darkBtn.textContent = state.darkMode ? '☀️' : '🌙';
+  darkBtn.setAttribute('aria-pressed', String(state.darkMode));
+  const muteBtn = document.getElementById('mute-btn');
+  muteBtn.textContent = state.muted ? '🔇' : '🔊';
+  muteBtn.setAttribute('aria-pressed', String(state.muted));
+
+  document.querySelectorAll('[data-level]').forEach(p =>
+    p.classList.toggle('active', p.dataset.level === state.level));
+  document.querySelectorAll('[data-count]').forEach(p =>
+    p.classList.toggle('active', +p.dataset.count === state.sessionCount));
+  document.querySelectorAll('[data-size]').forEach(p =>
+    p.classList.toggle('active', p.dataset.size === state.wordSize));
+
+  const LEVEL_LABELS = {preprimer:'📗 Pre-K',primer:'📘 Primer',grade1:'📙 Grade 1',grade2:'📕 Grade 2',grade3:'📓 Grade 3',all:'📚 All'};
+  document.getElementById('level-label').textContent = LEVEL_LABELS[state.level] || '';
+}
+
+function bindEvents() {
+  // Logo tap 3× to unlock parent controls
+  let logoTaps = 0, logoTimer;
+  document.getElementById('logo-btn').addEventListener('click', () => {
+    logoTaps++;
+    clearTimeout(logoTimer);
+    if (logoTaps >= 3) {
+      logoTaps = 0;
+      unlockParentControls();
+    } else {
+      logoTimer = setTimeout(() => { logoTaps = 0; }, 1200);
+    }
+  });
+
+  // Panel toggles — properly manage aria-pressed on both panels
+  function togglePanel(panelId, btnId) {
+    const panel    = document.getElementById(panelId);
+    const btn      = document.getElementById(btnId);
+    const otherId  = panelId === 'settings-panel' ? 'stats-panel' : 'settings-panel';
+    const otherBtn = document.getElementById(otherId === 'settings-panel' ? 'settings-btn' : 'stats-btn');
+    const isOpen   = panel.classList.contains('open');
+
+    // Close the other panel and reset its button state
+    document.getElementById(otherId).classList.remove('open');
+    otherBtn.setAttribute('aria-expanded', 'false');
+
+    // Toggle this panel — add .opening during animation to suppress scrollbar jank
+    panel.classList.toggle('open', !isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    if (!isOpen) {
+      panel.classList.add('opening');
+      setTimeout(() => panel.classList.remove('opening'), 240);
+      // Move focus to first interactive element inside the panel so
+      // keyboard/screen-reader users land directly in the panel content
+      setTimeout(() => {
+        const firstFocusable = panel.querySelector('button, input, [tabindex="0"]');
+        if (firstFocusable) firstFocusable.focus();
+      }, 50);
+    } else {
+      // Panel closing — return focus to the toggle button
+      btn.focus();
+    }
+  }
+
+  document.getElementById('settings-btn').addEventListener('click', () => togglePanel('settings-panel','settings-btn'));
+  document.getElementById('stats-btn').addEventListener('click', () => {
+    togglePanel('stats-panel','stats-btn');
+    if (document.getElementById('stats-panel').classList.contains('open')) updateStatsPanel();
+  });
+
+  // Close panels on outside click — fixed to properly identify both buttons
+  document.addEventListener('click', e => {
+    const settingsBtn = document.getElementById('settings-btn');
+    const statsBtn    = document.getElementById('stats-btn');
+    ['settings-panel','stats-panel'].forEach(id => {
+      const panel = document.getElementById(id);
+      const triggerBtn = id === 'settings-panel' ? settingsBtn : statsBtn;
+      if (panel.classList.contains('open') &&
+          !panel.contains(e.target) &&
+          !triggerBtn.contains(e.target)) {
+        panel.classList.remove('open');
+        triggerBtn.setAttribute('aria-pressed', 'false');
+        // Return focus to the trigger button so keyboard users aren't stranded
+        triggerBtn.focus();
+      }
+    });
+  });
+
+  // Dark mode
+  document.getElementById('dark-btn').addEventListener('click', () => {
+    state.darkMode = !state.darkMode;
+    applySettings(); save();
+  });
+
+  // Mute
+  document.getElementById('mute-btn').addEventListener('click', () => {
+    state.muted = !state.muted;
+    if (state.muted) {
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      cancelPhonics();       // cancel any pending phonics timers
+    }
+    applySettings(); save();
+  });
+
+  // Level / count pills — confirm if mid-session using PWA-safe modal
+  function confirmNewSession(msg, onConfirm) {
+    if (!isMidSession()) { onConfirm(); return; }
+    // Always use our own modal — see startNewSession() for why relying on
+    // window.confirm() throwing when blocked is unreliable.
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99999;display:flex;align-items:center;justify-content:center;';
+    overlay.innerHTML = `<div role="dialog" aria-modal="true" aria-labelledby="_ns_title" style="background:var(--card);border-radius:20px;padding:28px 24px;max-width:300px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+      <div style="font-size:28px;margin-bottom:8px">🃏</div>
+      <div id="_ns_title" style="font-weight:800;font-size:16px;margin-bottom:6px">${msg}</div>
+      <div style="color:var(--muted);font-size:13px;margin-bottom:20px">Current progress will be lost.</div>
+      <div style="display:flex;gap:10px">
+        <button type="button" id="_ns_cancel" style="flex:1;padding:10px;border:2px solid var(--muted);border-radius:12px;background:transparent;font-weight:800;cursor:pointer;color:var(--muted)">Cancel</button>
+        <button type="button" id="_ns_confirm" style="flex:1;padding:10px;border:none;border-radius:12px;background:var(--teal);color:#fff;font-weight:800;cursor:pointer">Continue</button>
+      </div>
+    </div>`;
+    document.body.appendChild(overlay);
+    const cancelBtn  = overlay.querySelector('#_ns_cancel');
+    const continueBtn = overlay.querySelector('#_ns_confirm');
+    continueBtn.focus();
+    overlay.addEventListener('keydown', ev => {
+      if (ev.key === 'Tab') {
+        ev.preventDefault();
+        (document.activeElement === continueBtn ? cancelBtn : continueBtn).focus();
+      }
+      if (ev.key === 'Escape') { overlay.remove(); }
+    });
+    cancelBtn.onclick   = () => overlay.remove();
+    continueBtn.onclick = () => { overlay.remove(); onConfirm(); };
+  }
+
+  document.querySelectorAll('[data-level]').forEach(p => p.addEventListener('click', () => {
+    confirmNewSession('Change to a new word level?', () => {
+      state.level = p.dataset.level; applySettings(); save(); startNewSession(false, true);
+    });
+  }));
+
+  document.querySelectorAll('[data-count]').forEach(p => p.addEventListener('click', () => {
+    confirmNewSession('Change session length?', () => {
+      state.sessionCount = +p.dataset.count; applySettings(); save(); startNewSession(false, true);
+    });
+  }));
+
+  // Word size pills
+  document.querySelectorAll('[data-size]').forEach(p => p.addEventListener('click', () => {
+    state.wordSize = p.dataset.size; applySettings(); save();
+  }));
+
+  // Toggles
+  // toggle-sentence removed — sentence always shown, no toggle needed
+  document.getElementById('toggle-phonics').addEventListener('change',  e => { state.showPhonics  = e.target.checked; save(); });
+  document.getElementById('toggle-emoji').addEventListener('change',    e => { state.showEmoji    = e.target.checked; save(); });
+  document.getElementById('toggle-autospeak').addEventListener('change', e => { state.autoSpeak   = e.target.checked; save(); });
+  document.getElementById('toggle-dyslexic').addEventListener('change', e => { state.dyslexic = e.target.checked; applySettings(); save(); });
+
+  // Flashcard click → speak word
+  const card = document.getElementById('flashcard');
+  card.addEventListener('click', () => { if (state.currentWord) speakWord(state.currentWord); });
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (state.currentWord) speakWord(state.currentWord); }
+  });
+
+  // ── Global keyboard shortcuts ──────────────────────────
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    const k = e.key;
+
+    if (k === '1') { e.preventDefault(); tryRate(0); }
+    else if (k === '2') { e.preventDefault(); tryRate(1); }
+    else if (k === '3') { e.preventDefault(); tryRate(2); }
+    else if (k === 'r' || k === 'R') { e.preventDefault(); if (state.currentWord) speakWord(state.currentWord); }
+    else if (k === 'p' || k === 'P') {
+      // Only fire phonics if focus is NOT on the flashcard (avoid clash with Enter/Space speak)
+      if (e.target.id !== 'flashcard') {
+        e.preventDefault();
+        if (state.currentWord && document.getElementById('confidence-row').classList.contains('visible')) {
+          speakPhonics(state.currentWord);
+        }
+      }
+    }
+    else if (k === ' ' || k === 'ArrowRight') {
+      // Space advances only when next-btn is visible AND focus is not on the flashcard
+      if (e.target.id !== 'flashcard' && document.getElementById('next-btn').classList.contains('visible')) {
+        e.preventDefault(); advanceCard();
+      }
+    }
+    else if (k === 'Escape') {
+      ['settings-panel','stats-panel'].forEach(id => {
+        const panel = document.getElementById(id);
+        if (panel.classList.contains('open')) {
+          panel.classList.remove('open');
+          const btn = id === 'settings-panel' ? document.getElementById('settings-btn') : document.getElementById('stats-btn');
+          btn.setAttribute('aria-expanded', 'false');
+          btn.focus();
+        }
+      });
+    }
+    else if (k === 'm' || k === 'M') { e.preventDefault(); document.getElementById('mute-btn').click(); }
+    else if (k === 's' || k === 'S') { e.preventDefault(); document.getElementById('settings-btn').click(); }
+    else if (k === 't' || k === 'T') { e.preventDefault(); document.getElementById('stats-btn').click(); if (document.getElementById('stats-panel').classList.contains('open')) updateStatsPanel(); }
+    else if (k === 'd' || k === 'D') { e.preventDefault(); document.getElementById('dark-btn').click(); }
+  });
+
+  // ── Swipe gestures on the flashcard ──────────────────────────────────────
+  // Swipe left  → advance to next card (same as Space/→)
+  // Swipe right → replay the word      (same as R key)
+  // Minimum 40px horizontal delta; vertical tolerance ≤ 60px to avoid scroll conflicts.
+  const cardEl = document.getElementById('card-area');
+  let _swipeX = null, _swipeY = null;
+  cardEl.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) return;
+    _swipeX = e.touches[0].clientX;
+    _swipeY = e.touches[0].clientY;
+  }, { passive: true });
+  cardEl.addEventListener('touchend', e => {
+    if (_swipeX === null) return;
+    const dx = e.changedTouches[0].clientX - _swipeX;
+    const dy = e.changedTouches[0].clientY - _swipeY;
+    _swipeX = _swipeY = null;
+    if (Math.abs(dy) > 60) return;          // too vertical — let page scroll
+    if (Math.abs(dx) < 40) return;          // too small — just a tap
+    if (dx < 0) {
+      // Swipe left → advance (only if next-btn visible)
+      if (document.getElementById('next-btn').classList.contains('visible')) advanceCard();
+    } else {
+      // Swipe right → replay word
+      if (state.currentWord) speakWord(state.currentWord);
+    }
+  }, { passive: true });
+}
+
+/* ── Chrome TTS visibility fix ───────────────────────────
+   Chrome pauses SpeechSynthesis when the tab is hidden
+   and may not resume it when the tab becomes visible again.
+   Re-cancelling and re-queueing when visibility is restored
+   avoids a stuck/silent state.
+──────────────────────────────────────────────────────── */
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && window.speechSynthesis && window.speechSynthesis.paused) {
+    window.speechSynthesis.resume();
+  }
+});
+
+/* guard so keyboard shortcuts can't double-rate */
+function tryRate(n) {
+  if (!document.getElementById('confidence-row').classList.contains('visible')) return;
+  if (state.rated) return;
+  rate(n);
+}
+
+function isMidSession() {
+  // True if the user has started but not completed the session
+  // After rating the last card (state.rated && cardIndex === queue.length-1),
+  // the session is effectively done — don't show confirmation.
+  return state.sessionTotal > 0
+    && state.cardIndex < state.queue.length
+    && !(state.rated && state.cardIndex >= state.queue.length - 1);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SESSION MANAGEMENT
+══════════════════════════════════════════════════════════ */
+function getWordPool() {
+  return state.level === 'all' ? Object.values(WORDS).flat() : (WORDS[state.level] || WORDS.preprimer);
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildQueue(pool) {
+  // Separate mastered (box 3) from unmastered
+  const unmastered = pool.filter(w => (state.leitner[w] || 1) < 3);
+  const mastered   = pool.filter(w => (state.leitner[w] || 1) >= 3);
+
+  // Only include mastered words if we need them to fill the session
+  const primary = unmastered.length >= state.sessionCount ? unmastered : [...unmastered, ...mastered];
+
+  // Weighted by leitner box: box1 = 3×, box2 = 2×, box3 = 1×
+  const weighted = [];
+  primary.forEach(w => {
+    const reps = [3,2,1][(state.leitner[w]||1) - 1] || 1;
+    for (let i = 0; i < reps; i++) weighted.push(w);
+  });
+  const shuffled = shuffle(weighted);
+  const seen = new Set(), queue = [];
+  for (const w of shuffled) {
+    if (!seen.has(w)) { seen.add(w); queue.push(w); }
+    if (queue.length >= state.sessionCount) break;
+  }
+  if (queue.length < state.sessionCount) {
+    shuffle(primary.filter(w => !seen.has(w))).forEach(w => { if (queue.length < state.sessionCount) queue.push(w); });
+  }
+  return queue.slice(0, state.sessionCount);
+}
+
+function startNewSession(reviewOnly, skipConfirm) {
+  // Confirm if mid-session (unless explicitly skipped, e.g. from end screen)
+  if (!skipConfirm && isMidSession()) {
+    // Always use our own in-app confirmation modal rather than the native
+    // window.confirm(). Browsers (Chrome since v92, and many embedded/
+    // in-app webviews) silently disable window.confirm() in restricted
+    // contexts such as cross-origin iframes — critically, this does NOT
+    // throw an exception, it just returns false immediately as if the
+    // user clicked Cancel. A try/catch around it never catches this case,
+    // so relying on it caused "New Round" to silently do nothing with no
+    // feedback whenever the page was embedded in such a context. Using
+    // our own modal unconditionally avoids that dependency entirely.
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99999;display:flex;align-items:center;justify-content:center;';
+    overlay.innerHTML = `<div role="dialog" aria-modal="true" aria-labelledby="_sns_title" style="background:var(--card);border-radius:20px;padding:28px 24px;max-width:300px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+      <div style="font-size:28px;margin-bottom:8px">🔄</div>
+      <div id="_sns_title" style="font-weight:800;font-size:16px;margin-bottom:6px">Start a new session?</div>
+      <div style="color:var(--muted);font-size:13px;margin-bottom:20px">Current progress will be lost.</div>
+      <div style="display:flex;gap:10px">
+        <button type="button" id="_sns_cancel"  style="flex:1;padding:10px;border:2px solid var(--muted);border-radius:12px;background:transparent;font-weight:800;cursor:pointer;color:var(--muted)">Cancel</button>
+        <button type="button" id="_sns_confirm" style="flex:1;padding:10px;border:none;border-radius:12px;background:var(--teal);color:#fff;font-weight:800;cursor:pointer">Start</button>
+      </div>
+    </div>`;
+    document.body.appendChild(overlay);
+    const cancelBtn  = overlay.querySelector('#_sns_cancel');
+    const startBtn   = overlay.querySelector('#_sns_confirm');
+    startBtn.focus();
+    overlay.addEventListener('keydown', ev => {
+      if (ev.key === 'Tab') { ev.preventDefault(); (document.activeElement === startBtn ? cancelBtn : startBtn).focus(); }
+      if (ev.key === 'Escape') overlay.remove();
+    });
+    cancelBtn.onclick  = () => overlay.remove();
+    startBtn.onclick   = () => { overlay.remove(); startNewSession(reviewOnly, true); };
+    return;
+  }
+  // Cancel any in-flight audio from the previous session
+  clearTimeout(state._autoSpeakTimer);
+  cancelPhonics();
+  hideEndScreen();
+  // Hide review-mode banner for normal sessions (startReviewSession re-shows it)
+  if (!reviewOnly) {
+    const b = document.getElementById('review-mode-banner');
+    b.style.display = 'none';
+    b.textContent = '';
+  }
+  state.sessionCorrect    = 0;
+  state.sessionKindOf     = 0;
+  state.sessionTotal      = 0;
+  state.sessionMissed     = [];
+  state.sessionNewWords   = [];
+  state.sessionBestStreak = 0;
+  state.cardIndex      = 0;
+  state.currentStreak  = 0;
+  state.rated          = false;
+
+  state.queue = (reviewOnly && state.reviewQueue.length > 0)
+    ? shuffle([...state.reviewQueue]).slice(0, state.sessionCount)
+    : buildQueue(getWordPool());
+
+  updateLiveStats();
+  showCard();
+}
+
+function startReviewSession() {
+  if (state.reviewQueue.length === 0) return;
+  // Filter review queue to current level (or all levels if "all" selected)
+  // so children only review words they're currently studying
+  const pool = new Set(getWordPool());
+  const filtered = state.reviewQueue.filter(w => pool.has(w));
+  if (filtered.length > 0) {
+    // Temporarily override reviewQueue for this session
+    const saved = state.reviewQueue;
+    state.reviewQueue = filtered;
+    startNewSession(true, true);
+    state.reviewQueue = saved;
+  } else {
+    // No review words in current level — run full review anyway
+    startNewSession(true, true);
+  }
+  const rvBanner = document.getElementById('review-mode-banner');
+  rvBanner.style.display = 'block';
+  // Inject text after display change so aria-live region fires the announcement
+  setTimeout(() => { rvBanner.textContent = '📋 PRACTICE MISSED WORDS'; }, 50);
+}
+
+/* ══════════════════════════════════════════════════════════
+   CARD DISPLAY
+══════════════════════════════════════════════════════════ */
+function showCard() {
+  if (state.cardIndex >= state.queue.length) { endSession(); return; }
+
+  // Restore card area visibility (endSession hides it; must re-show on new card)
+  document.getElementById('card-area').style.display = '';
+
+  const word = state.queue[state.cardIndex];
+  state.currentWord = word;
+  state.rated       = false;
+  cancelPhonics();
+  if (window.speechSynthesis) { try { window.speechSynthesis.cancel(); } catch(e) {} }
+
+  // Animate card in
+  const card = document.getElementById('flashcard');
+  card.style.animation = 'none';
+  card.offsetHeight;
+  card.style.animation = 'cardIn 0.35s cubic-bezier(.34,1.56,.64,1)';
+
+  // Word
+  const wdEl = document.getElementById('word-display');
+  wdEl.textContent = word;
+
+  // Emoji (visual association)
+  const emojiEl = document.getElementById('word-emoji');
+  if (state.showEmoji && EMOJIS[word]) {
+    emojiEl.textContent = EMOJIS[word];
+    emojiEl.style.display = 'block';
+  } else {
+    emojiEl.style.display = 'none';
+  }
+
+  // Level tag
+  const levelNames = {preprimer:'Pre-K',primer:'Primer',grade1:'Gr.1',grade2:'Gr.2',grade3:'Gr.3'};
+  document.getElementById('level-tag').textContent = levelNames[getWordLevel(word)] || '';
+
+  // Hide phonics row (only shown on demand) but always show the sentence
+  document.getElementById('phonics-row').style.display   = 'none';
+  document.getElementById('phonics-display').textContent = '';
+  document.getElementById('next-btn').classList.remove('visible');
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className   = '';
+
+  // Always show the example sentence immediately with the card
+  if (SENTENCES[word]) {
+    showSentence(word);
+  } else {
+    document.getElementById('word-context').style.display = 'none';
+    document.getElementById('sentence-row').style.display = 'none';
+    document.getElementById('sentence-display').innerHTML = '';
+  }
+
+  // Disable confidence buttons until ready
+  setConfidenceBtnsDisabled(true);
+  document.getElementById('confidence-row').classList.remove('visible');
+
+  updateProgress();
+
+  // After 0.5s: auto-speak then reveal confidence buttons.
+  // Cancel any pending timer first so rapid card advances don't double-speak.
+  clearTimeout(state._autoSpeakTimer);
+  state._autoSpeakTimer = setTimeout(() => {
+    if (state.autoSpeak && state.currentWord) speakWord(state.currentWord);
+    document.getElementById('confidence-row').classList.add('visible');
+    setConfidenceBtnsDisabled(false);
+    // Move focus to the flashcard so keyboard/screen-reader users are oriented
+    // to the new word. Do this after buttons are enabled so Tab order is ready.
+    const fc = document.getElementById('flashcard');
+    if (document.activeElement !== fc) fc.focus({ preventScroll: true });
+  }, 500);
+}
+
+function setConfidenceBtnsDisabled(disabled) {
+  ['btn-skip','btn-ok','btn-got'].forEach(id => {
+    document.getElementById(id).disabled = disabled;
+  });
+}
+
+/* ── Precomputed word→level lookup (built once, O(1) per card) ── */
+const WORD_LEVEL = {};
+Object.entries(WORDS).forEach(([level, words]) => words.forEach(w => { WORD_LEVEL[w] = level; }));
+
+function getWordLevel(word) { return WORD_LEVEL[word] || ''; }
+
+/* ══════════════════════════════════════════════════════════
+   RATING — Leitner Spaced Repetition
+   0 = didn't know → box stays/drops to 1
+   1 = kind of     → box 2
+   2 = got it!     → box advances toward 3
+══════════════════════════════════════════════════════════ */
+function rate(confidence) {
+  if (state.rated) return;          // ← double-rate guard
+  state.rated = true;
+
+  // Disable buttons immediately
+  setConfidenceBtnsDisabled(true);
+
+  const word = state.currentWord;
+  state.sessionTotal++;
+
+  if (confidence === 2) {
+    const prevBox = state.leitner[word] || 1;
+    state.leitner[word] = Math.min(prevBox + 1, 3);
+    // Only track words that actually advanced (not already at box 3)
+    if (prevBox < 3 && !state.sessionNewWords.includes(word)) {
+      state.sessionNewWords.push(word);
+    }
+    state.sessionCorrect++;
+    state.totalCorrect++;
+    state.currentStreak++;
+    if (state.currentStreak > state.bestStreak) state.bestStreak = state.currentStreak;
+    if (state.currentStreak > state.sessionBestStreak) state.sessionBestStreak = state.currentStreak;
+
+    document.getElementById('feedback').textContent = pickCheerEmoji();
+    document.getElementById('feedback').className   = 'correct';
+
+    showSentence(word);
+    if (state.showPhonics)  showPhonics(word);
+    triggerConfetti(state.currentStreak >= 5 ? 'big' : 'small');
+    checkBadges();
+
+  } else if (confidence === 1) {
+    // "Kind of" — advance to box 2 if at box 1; never lower from box 2 or 3
+    const prevBoxKO = state.leitner[word] || 1;
+    state.leitner[word] = Math.max(prevBoxKO, 2);
+    // Track Kind-of advances in sessionNewWords too (partial learning is still progress)
+    if (prevBoxKO < 2 && !state.sessionNewWords.includes(word)) {
+      state.sessionNewWords.push(word);
+    }
+    state.sessionKindOf++;
+    document.getElementById('feedback').textContent = "Almost! Keep practising 🙂";
+    document.getElementById('feedback').className   = 'kindof';
+    showSentence(word);
+    if (state.showPhonics)  showPhonics(word);
+    triggerStarBurst();
+
+  } else {
+    // "Didn't know" — drop box, add to review
+    state.leitner[word] = Math.max((state.leitner[word] || 1) - 1, 1);
+    state.sessionMissed.push(word);
+    if (!state.reviewQueue.includes(word)) {
+      state.reviewQueue.push(word);
+      if (state.reviewQueue.length > 20) state.reviewQueue.shift(); // cap at 20, drop oldest
+    }
+    state.currentStreak = 0;
+    document.getElementById('feedback').textContent = "No worries — we'll practice again!";
+    document.getElementById('feedback').className   = 'skip';
+    // Show sentence AND phonics to help child learn the word
+    showSentence(word);
+    if (state.showPhonics)  showPhonics(word);
+  }
+
+  // Remove from reviewQueue once word reaches box 2 or higher (making good progress)
+  if ((state.leitner[word] || 1) >= 2) {
+    state.reviewQueue = state.reviewQueue.filter(w => w !== word);
+  }
+
+  // NOTE: cardIndex is incremented in advanceCard(), not here,
+  // so the progress bar stays accurate while the card/context is visible.
+  updateLiveStats();
+  save();
+
+  // Show "Next" button — child advances manually
+  document.getElementById('next-btn').classList.add('visible');
+  document.getElementById('next-btn').focus();
+}
+
+function advanceCard() {
+  document.getElementById('next-btn').classList.remove('visible');
+  // Brief exit animation before loading next card
+  const card = document.getElementById('flashcard');
+  card.style.animation = 'cardOut 0.18s ease-in forwards';
+  setTimeout(() => {
+    card.style.animation = '';
+    state.cardIndex++;
+    showCard();
+  }, 170);
+}
+
+function pickCheerEmoji() {
+  return ["🌟","🎉","💪🏽","⭐","🚀","🎯","🌈","😄","💯","🔥","✨","🥳"][Math.floor(Math.random()*12)];
+}
+
+function showSentence(word) {
+  const s = SENTENCES[word];
+  if (!s) return;
+  const el = document.getElementById('sentence-display');
+  // Word boundary highlight — uses \b for broad compatibility (Safari < 16.4 lacks lookbehind)
+  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const pattern = new RegExp(`\\b${escaped}\\b`, 'gi');
+  el.innerHTML = s.replace(pattern, m => `<span class="hl">${m}</span>`);
+  document.getElementById('sentence-row').style.display = 'block';
+  document.getElementById('word-context').style.display = 'flex';
+}
+
+function showPhonics(word) {
+  const p = PHONICS[word];
+  if (!p) return;
+  const el = document.getElementById('phonics-display');
+  el.textContent = p;
+  document.getElementById('phonics-row').style.display = 'block';
+  document.getElementById('word-context').style.display = 'flex';
+}
+
+/* ══════════════════════════════════════════════════════════
+   PROGRESS & LIVE STATS
+══════════════════════════════════════════════════════════ */
+function updateProgress() {
+  const total = state.queue.length;
+  const done  = state.cardIndex;   // cards fully completed (rated + advanced past)
+  const pct   = total > 0 ? Math.round((done / total) * 100) : 0;
+  const pb = document.getElementById('progress-bar');
+  const pbWrap = pb.parentElement;
+  pb.style.width = pct + '%';
+  pbWrap.setAttribute('aria-valuenow', pct);
+  const cardLabel = `Card ${Math.min(done + 1, total)} of ${total}`;
+  pbWrap.setAttribute('aria-valuetext', cardLabel);
+  document.getElementById('progress-text').textContent = cardLabel;
+}
+
+function updateLiveStats() {
+  document.getElementById('stat-correct').textContent = state.sessionCorrect;
+
+  const streakEl = document.getElementById('stat-streak');
+  streakEl.textContent = state.currentStreak;
+  if (state.currentStreak > 0) {
+    streakEl.classList.add('streak-fire');
+    setTimeout(() => streakEl.classList.remove('streak-fire'), 400);
+  }
+
+  document.getElementById('stat-review').textContent = state.reviewQueue.length;
+  document.getElementById('btn-review-missed').disabled = state.reviewQueue.length === 0;
+
+  // Auto-refresh stats panel if it's open
+  if (document.getElementById('stats-panel').classList.contains('open')) updateStatsPanel();
+}
+
+/* ══════════════════════════════════════════════════════════
+   STATS PANEL
+══════════════════════════════════════════════════════════ */
+function updateStatsPanel() {
+  const masteredWords = Object.entries(state.leitner).filter(([,v]) => v >= 3).map(([k]) => k);
+
+  document.getElementById('sp-total').textContent    = state.totalCorrect;
+  document.getElementById('sp-streak').textContent   = state.bestStreak;
+  document.getElementById('sp-mastered').textContent = masteredWords.length;
+  document.getElementById('sp-review').textContent   = state.reviewQueue.length;
+  document.getElementById('sp-sessions').textContent = state.sessionsCount;
+  document.getElementById('sp-pct').textContent      = state.bestPct + '%';
+
+  const masteredSection = document.getElementById('mastered-section');
+  const masteredList    = document.getElementById('mastered-list');
+  if (masteredWords.length > 0) {
+    masteredSection.style.display = 'block';
+    masteredList.innerHTML = masteredWords.map(w => `<span class="mastered-word">${w}</span>`).join('');
+  } else {
+    masteredSection.style.display = 'none';
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   END SCREEN
+══════════════════════════════════════════════════════════ */
+function endSession() {
+  // Cancel any pending autoSpeak and phonics so they don't fire on the end screen
+  clearTimeout(state._autoSpeakTimer);
+  cancelPhonics();
+  // Track session count and best pct
+  state.sessionsCount++;
+  // Composite score: Got it = 1pt, Kind of = 0.5pt
+  const composite = state.sessionCorrect + state.sessionKindOf * 0.5;
+  const pct = state.sessionTotal > 0 ? Math.round((composite / state.sessionTotal) * 100) : 0;
+  if (pct > state.bestPct) state.bestPct = pct;
+
+  if (state.sessionTotal > 0 && state.sessionCorrect === state.sessionTotal) awardBadge('b8');
+  checkBadges();   // catches b9, b10, b11-b15 and all threshold/level badges
+
+  save();
+
+  document.getElementById('card-area').style.display      = 'none';
+  document.querySelector('.action-row').style.display      = 'none';
+  document.getElementById('confidence-row').style.display = 'none';
+  document.getElementById('word-context').style.display   = 'none';
+  document.getElementById('next-btn').classList.remove('visible');
+  document.getElementById('feedback').textContent         = '';
+
+  const endScreen = document.getElementById('end-screen');
+  endScreen.classList.add('visible');
+  // Move focus to end screen for keyboard/screen-reader users
+  setTimeout(() => {
+    const firstBtn = endScreen.querySelector('button');
+    if (firstBtn) firstBtn.focus();
+  }, 100);
+  const endScoreEl = document.getElementById('end-score');
+  endScoreEl.textContent = `${state.sessionCorrect}/${state.sessionTotal}`;
+  endScoreEl.setAttribute('aria-label', `${state.sessionCorrect} out of ${state.sessionTotal}`);
+
+  // Dynamic title based on performance
+  const isFirstSession = state.sessionsCount === 1;
+  const isPerfect      = pct === 100 && state.sessionTotal > 0;
+  const isStruggling   = pct < 40   && state.sessionTotal > 0;
+  const titleEl = document.getElementById('end-title');
+  if (isFirstSession) {
+    titleEl.textContent = '🌟 First Round Done!';
+  } else if (isPerfect) {
+    titleEl.textContent = '🏆 Perfect Round!';
+  } else if (isStruggling) {
+    titleEl.textContent = '💪🏽 Keep Practising!';
+  } else {
+    titleEl.textContent = '🎉 Round Complete!';
+  }
+  // Show Kind of count if any
+  const kindOfNote = document.getElementById('end-kindof');
+  if (state.sessionKindOf > 0) {
+    kindOfNote.textContent = `+ ${state.sessionKindOf} almost!`;
+    kindOfNote.style.display = 'block';
+  } else {
+    kindOfNote.style.display = 'none';
+  }
+  document.getElementById('end-sub').textContent   = [
+    [100,"💯 Perfect round! Incredible!"],
+    [80, "🌟 Fantastic work!"],
+    [60, "👍🏽 Good effort — practice makes perfect!"],
+    [0,  "💪🏽 Keep going — you're learning every day!"],
+  ].find(([t]) => pct >= t)[1];
+
+  const streakEl = document.getElementById('end-streak');
+  if (state.sessionBestStreak >= 3) {
+    streakEl.textContent = `🔥 Best streak this round: ${state.sessionBestStreak}`;
+    streakEl.style.display = 'block';
+  } else {
+    streakEl.style.display = 'none';
+  }
+
+  // New words learned today
+  const newSection = document.getElementById('new-words-section');
+  const newList    = document.getElementById('new-words-list');
+  const newWords   = [...new Set(state.sessionNewWords)];
+  if (newWords.length > 0) {
+    newSection.style.display = 'block';
+    newList.innerHTML = '';
+    newWords.forEach(w => {
+      const btn = document.createElement('button');
+      btn.className = 'missed-tag';
+      btn.style.borderColor = 'var(--green)';
+      btn.style.color       = 'var(--green)';
+      btn.textContent = w;
+      btn.setAttribute('aria-label', `Tap to hear ${w}`);
+      btn.addEventListener('click', () => speakWord(w));   // WAV path for "the"
+      newList.appendChild(btn);
+    });
+  } else {
+    newSection.style.display = 'none';
+  }
+
+  // Missed words list
+  const missedSection = document.getElementById('missed-words-section');
+  const missedList    = document.getElementById('missed-words-list');
+  if (state.sessionMissed.length > 0) {
+    missedSection.style.display = 'block';
+    missedList.innerHTML = '';
+    const uniqueMissed = [...new Set(state.sessionMissed)];
+    uniqueMissed.forEach(w => {
+      const btn = document.createElement('button');
+      btn.className = 'missed-tag';
+      btn.textContent = w;
+      btn.setAttribute('aria-label', `Tap to hear ${w}`);
+      btn.addEventListener('click', () => speakWord(w));
+      missedList.appendChild(btn);
+    });
+  } else {
+    missedSection.style.display = 'none';
+  }
+
+  document.getElementById('btn-end-review').disabled = state.reviewQueue.length === 0;
+  // Delay confetti/cheer so any card-level cheer finishes first
+  setTimeout(() => triggerConfetti(pct === 100 ? 'big' : 'small'), 800);
+  updateLiveStats();
+}
+
+function hideEndScreen() {
+  document.getElementById('end-screen').classList.remove('visible');
+  document.getElementById('card-area').style.display = '';
+  document.querySelector('.action-row').style.display = '';
+  document.getElementById('end-title').textContent = '🎉 Round Complete!'; // reset for next session
+  document.getElementById('review-mode-banner').style.display = 'none';
+  document.getElementById('review-mode-banner').textContent = '';
+  document.getElementById('confidence-row').style.display = '';
+  document.getElementById('confidence-row').classList.remove('visible');
+  document.getElementById('word-context').style.display   = 'none';
+  document.getElementById('next-btn').classList.remove('visible');
+  // Reset end-screen elements so stale values don't flash on next reveal
+  document.getElementById('end-kindof').style.display  = 'none';
+  document.getElementById('end-streak').style.display  = 'none';
+  document.getElementById('new-words-section').style.display   = 'none';
+  document.getElementById('missed-words-section').style.display = 'none';
+}
+
+/* ══════════════════════════════════════════════════════════
+   SPEECH — word reading
+══════════════════════════════════════════════════════════ */
+let phonicsTimers = [];
+
+function cancelPhonics() {
+  phonicsTimers.forEach(t => clearTimeout(t));
+  phonicsTimers = [];
+}
+function getVoice() {
+  if (!window.speechSynthesis) return null;
+  const voices = window.speechSynthesis.getVoices();
+  const enUS = voices.filter(v => v.lang === 'en-US');
+  const enAny = voices.filter(v => v.lang && v.lang.startsWith('en'));
+  const candidates = enUS.length ? enUS : (enAny.length ? enAny : voices);
+  if (!candidates.length) return null;
+
+  // Score each voice — prefer modern, natural-sounding engines over
+  // older robotic-sounding default system voices. Higher score wins.
+  const score = v => {
+    const n = v.name.toLowerCase();
+    let s = 0;
+    // Premium/neural engines (Chrome OS, Android, newer macOS/iOS) — most natural
+    if (/neural|natural|premium|enhanced|wavenet/i.test(n)) s += 100;
+    // Known pleasant, well-reviewed platform voices
+    if (/samantha|ava|allison|nicky|zoe|evan|tom|aria/i.test(n)) s += 60;
+    // Google's higher-quality web voices (Chrome/Android)
+    if (/google us english|google uk english female/i.test(n)) s += 50;
+    // Older but still decent named voices
+    if (/zira|karen|victoria|moira|fiona/i.test(n)) s += 30;
+    // Mild preference for female-leaning child-facing voices (commonly
+    // rated as warmer for read-aloud contexts), without excluding others
+    if (/female|woman/i.test(n)) s += 5;
+    // Explicitly deprioritise known low-quality robotic voices
+    if (/microsoft david|microsoft mark|robot|espeak|compact/i.test(n)) s -= 50;
+    // Slight bonus for local (on-device) voices — usually lower latency
+    // and often better quality than some remote/cloud fallbacks
+    if (v.localService) s += 10;
+    return s;
+  };
+
+  return candidates.slice().sort((a, b) => score(b) - score(a))[0] || null;
+}
+
+/* ── TTS pronunciation fix ────────────────────────────────
+   Some TTS engines mispronounce short words in isolation.
+   Strategy: speak a silent "primer" utterance (volume 0) that
+   ends with the same phoneme cluster, then on its onend speak
+   the real word. The engine is already in the right articulatory
+   position and pronounces the target correctly.
+
+   For "the": primer is "with" (ends in same voiced dental
+   fricative /ð/) spoken silently — then "the" follows correctly.
+   For other problem words we use phonetic respellings as fallback.
+────────────────────────────────────────────────────────── */
+/* Pre-encoded correct pronunciation of "the" as a WAV audio clip.
+   This completely bypasses the TTS engine for this word, which many
+   engines mispronounce as "they" regardless of string tricks. */
+const TTS_SPEAK = {
+  "a":    "A",      // capital letter forces TTS to say the letter name /eɪ/
+  "it":   "itt",    // doubled t forces final stop articulation — "it." still dropped the t
+  "the":  "tha",    // "thuh" drifts to "thue/thew" on some voices; "tha" gives stable schwa
+  "through": "throo.",  // silent gh — TTS often says "throw" or "thruff" without override
+  "should":  "shood.",  // silent l — prevents "shold" mispronunciation on some voices
+  "might":   "mite.",   // silent gh — prevents "mig-ht" on some voices
+  "I":    "eye",
+  "an":   "an",
+  "as":   "az",
+  "of":   "uv",
+  "or":   "or",
+  "be":   "bee",
+  "he":   "hee",
+  "me":   "mee",
+  "we":   "wee",
+  "by":   "bye",
+  "do":   "doo",
+  "go":   "goh",
+  "in":   "in",
+  "is":   "iz",
+  "my":   "my",
+  "no":   "noh",
+  "on":   "on",
+  "so":   "soh",
+  "to":   "too",
+  "up":   "up",
+  "us":   "us",
+  "at":   "at",
+  "if":   "if",
+  "are":  "ar",
+  "was":  "wuz",
+  "has":  "haz",
+  "his":  "hiz",
+  "its":  "its",
+  "our":  "ower",
+  // Additional overrides for commonly mispronounced Dolch words
+  "one":   "wun.",   "once":  "wunss.",  "come":  "kum.",
+  "some":  "sum.",   "have":  "hav.",    "give":  "giv.",
+  "live":  "liv.",   "does":  "duz.",    "done":  "dun.",
+  "who":   "hoo.",   "eight": "ayt.",    "laugh": "laf.",
+  "could": "kood.",  "would": "wood.",   "their": "thair.",
+  "there": "thair.", "they":  "thay.",   "those": "thoze.",
+  "these": "theeze.","read":  "reed.",   "four":  "for.",
+  "your":  "yor.",   "don't": "dohnt.",
+};
+
+/* Phonetic respellings for individual letters/sound-chunks spoken in
+   isolation during "Sound it out" (speakPhonics). This is a SEPARATE
+   concern from TTS_SPEAK above: TTS_SPEAK fixes whole-word pronunciation
+   (e.g. "a" the indefinite article), but a single bare letter handed to
+   a speech engine on its own — like the "a" chunk in "c-a-n" — is highly
+   prone to being read as the alphabet LETTER NAME instead of the sound,
+   which is how "a" can come out sounding like "eye" (the letter name)
+   rather than the short vowel sound intended. Only the single-letter
+   vowels are covered here, since they're the chunks most often spoken
+   fully alone in this app's phonics data; anything not listed falls
+   back to the raw letter unchanged.  */
+const LETTER_SOUNDS = {
+  "a": "ah.", "e": "eh.", "i": "ih.", "o": "ah.", "u": "uh.",
+};
+
+
+function speakViaTTS(word) {
+  if (!window.speechSynthesis) return;
+  const spoken = TTS_SPEAK[word] || word;
+  const go = () => {
+    try {
+      const voice = getVoice();
+      const u = new SpeechSynthesisUtterance(spoken);
+      u.rate = 0.88; u.pitch = 1.02; u.volume = 0.92;
+      if (voice) u.voice = voice;
+      window.speechSynthesis.speak(u);
+    } catch(e) {}
+  };
+  // Guard: voices may not be loaded yet on first call
+  window.speechSynthesis.getVoices().length ? go() : (window.speechSynthesis.onvoiceschanged = go);
+}
+
+function speakWord(word) {
+  if (state.muted) return;
+  if (!window.speechSynthesis) return;
+  // Cancelling the autoSpeak timer prevents double-speak if the user
+  // manually taps the card before the 500 ms timer fires.
+  clearTimeout(state._autoSpeakTimer);
+  // Pulse the speaker icon as visual feedback
+  const icon = document.querySelector('.tap-hint .icon');
+  if (icon) {
+    icon.classList.remove('speaking');
+    void icon.offsetWidth;    // reflow to restart animation
+    icon.classList.add('speaking');
+    setTimeout(() => icon.classList.remove('speaking'), 1800);
+  }
+  try {
+    window.speechSynthesis.cancel();
+    const go = () => speakViaTTS(word);
+    window.speechSynthesis.getVoices().length ? go() : (window.speechSynthesis.onvoiceschanged = go);
+  } catch(e) {}
+}
+
+function speakPhonics(word) {
+  if (state.muted) return;
+  if (!window.speechSynthesis) return;
+  cancelPhonics();
+  const phonics = PHONICS[word];
+  if (!phonics) { speakWord(word); return; }
+  try {
+    window.speechSynthesis.cancel();
+    const go = () => {
+      const parts = phonics.split('-');
+      let delay = 0;
+      parts.forEach(part => {
+        const t = setTimeout(() => {
+          const spokenPart = LETTER_SOUNDS[part] || part;
+          const u = new SpeechSynthesisUtterance(spokenPart);
+          u.rate = 0.7; u.pitch = 1.15; u.volume = 0.9;
+          const v = getVoice(); if (v) u.voice = v;
+          window.speechSynthesis.speak(u);
+        }, delay);
+        phonicsTimers.push(t);
+        delay += 420;
+      });
+      // Speak whole word at end — reuse speakWord so "the" uses WAV
+      const t = setTimeout(() => {
+            speakViaTTS(word);
+      }, delay + 150);
+      phonicsTimers.push(t);
+    };
+    window.speechSynthesis.getVoices().length ? go() : (window.speechSynthesis.onvoiceschanged = go);
+  } catch(e) {}
+}
+
+/* ══════════════════════════════════════════════════════════
+   BADGES
+══════════════════════════════════════════════════════════ */
+function checkBadges() {
+  BADGES.forEach(b => {
+    if (b.threshold   && state.totalCorrect   >= b.threshold)   awardBadge(b.id);
+    if (b.streakReq   && state.currentStreak  >= b.streakReq)   awardBadge(b.id);
+    if (b.sessionsReq && state.sessionsCount  >= b.sessionsReq) awardBadge(b.id);
+    if (b.masteredReq) {
+      const m = Object.values(state.leitner).filter(v => v >= 3).length;
+      if (m >= b.masteredReq) awardBadge(b.id);
+    }
+    if (b.levelReq) {
+      const levelWords = WORDS[b.levelReq] || [];
+      if (levelWords.length > 0 && levelWords.every(w => (state.leitner[w] || 1) >= 3)) {
+        awardBadge(b.id);
+      }
+    }
+    if (b.allLevelsReq) {
+      const allDolch = Object.values(WORDS).flat();
+      if (allDolch.every(w => (state.leitner[w] || 1) >= 3)) awardBadge(b.id);
+    }
+  });
+}
+
+function awardBadge(id) {
+  if (state.earnedBadges.has(id)) return;
+  state.earnedBadges.add(id);
+  const badge = BADGES.find(b => b.id === id);
+  const el    = document.getElementById(id);
+  if (el) {
+    el.classList.add('earned');
+    el.classList.remove('just-earned');
+    el.offsetHeight;
+    el.classList.add('just-earned');
+  }
+  // Announce badge after cheer finishes — wait minimum 300ms then poll until idle
+  if (badge && !state.muted && window.speechSynthesis) {
+    const announceBadge = () => {
+      try {
+        const msg = `New badge! ${badge.name}!`;
+        const u   = new SpeechSynthesisUtterance(msg);
+        u.pitch   = 1.5; u.rate = 1.0; u.volume = 0.9;
+        const v   = getVoice(); if (v) u.voice = v;
+        window.speechSynthesis.speak(u);
+      } catch(e) {}
+    };
+    setTimeout(() => {
+      let waited = 0;
+      const poll = setInterval(() => {
+        waited += 120;
+        if (!window.speechSynthesis.speaking || waited > 6000) {
+          clearInterval(poll);
+          announceBadge();
+        }
+      }, 120);
+    }, 300);
+  }
+  save();
+}
+
+/* ══════════════════════════════════════════════════════════
+   AUDIO — Expressive spoken encouragement + musical chime
+══════════════════════════════════════════════════════════ */
+const CHEERS_BIG = [
+  { a:"Wooow!!",      b:"That is AMAZING!!",       p1:1.5,  r1:0.85, p2:1.25, r2:1.1  },
+  { a:"OH YEAH!!",    b:"You are a SUPERSTAR!",    p1:1.45, r1:1.0,  p2:1.3,  r2:1.05 },
+  { a:"INCREDIBLE!!", b:"You totally got it!",     p1:1.4,  r1:0.9,  p2:1.2,  r2:1.0  },
+  { a:"Yesss!!",      b:"Brilliant work!!",        p1:1.5,  r1:0.8,  p2:1.25, r2:1.05 },
+  { a:"Woohoo!!",     b:"You are on FIRE today!",  p1:1.45, r1:1.0,  p2:1.3,  r2:1.1  },
+  { a:"FANTASTIC!!",  b:"Keep it going!!",         p1:1.4,  r1:0.95, p2:1.2,  r2:1.15 },
+  { a:"Whoa!!",       b:"You really nailed that!", p1:1.45, r1:0.9,  p2:1.25, r2:1.05 },
+  { a:"YES!!",        b:"What a reading star!",    p1:1.5,  r1:0.85, p2:1.3,  r2:1.0  },
+  { a:"Marvelous!!",  b:"You are unstoppable!",    p1:1.4,  r1:0.95, p2:1.25, r2:1.1  },
+  { a:"WOW WOW WOW!", b:"That was outstanding!",   p1:1.45, r1:1.0,  p2:1.2,  r2:1.05 },
+  { a:"Bravo!!",      b:"Reading champion right there!", p1:1.4, r1:0.9, p2:1.25, r2:1.0 },
+  { a:"Way to go!!",  b:"You make this look easy!", p1:1.45, r1:0.95, p2:1.2, r2:1.1 },
+  { a:"Magnificent!", b:"You should be so proud!", p1:1.4,  r1:0.9,  p2:1.2,  r2:1.0  },
+  { a:"Hooray!!",     b:"Five stars from me!",     p1:1.5,  r1:0.95, p2:1.3,  r2:1.05 },
+  { a:"Spectacular!", b:"Your brain is growing!",  p1:1.4,  r1:0.9,  p2:1.2,  r2:1.0  },
+  { a:"Sensational!", b:"Look at you go!",         p1:1.45, r1:0.95, p2:1.25, r2:1.1  },
+];
+const CHEERS_SMALL = [
+  { a:"Great job!",        b:null, p1:1.25, r1:1.05 },
+  { a:"Well done!",        b:null, p1:1.2,  r1:1.0  },
+  { a:"Yes! Got it!",      b:null, p1:1.3,  r1:1.1  },
+  { a:"Awesome!!",         b:null, p1:1.35, r1:0.95 },
+  { a:"Nice work!",        b:null, p1:1.2,  r1:1.05 },
+  { a:"Perfect!!",         b:null, p1:1.3,  r1:0.9  },
+  { a:"Keep it up!",       b:null, p1:1.25, r1:1.1  },
+  { a:"You got this!",     b:null, p1:1.2,  r1:1.0  },
+  { a:"Nicely done!",      b:null, p1:1.25, r1:1.0  },
+  { a:"That's it!",        b:null, p1:1.3,  r1:1.05 },
+  { a:"Good thinking!",    b:null, p1:1.2,  r1:0.95 },
+  { a:"You're learning!",  b:null, p1:1.2,  r1:1.0  },
+  { a:"Right on!",         b:null, p1:1.3,  r1:1.05 },
+  { a:"Excellent!",        b:null, p1:1.25, r1:0.9  },
+  { a:"Way to read!",      b:null, p1:1.25, r1:1.0  },
+  { a:"You did it!",       b:null, p1:1.3,  r1:1.0  },
+  { a:"Super!",            b:null, p1:1.3,  r1:0.95 },
+  { a:"Nice reading!",     b:null, p1:1.2,  r1:1.05 },
+  { a:"Good job!",         b:null, p1:1.25, r1:1.0  },
+  { a:"There it is!",      b:null, p1:1.25, r1:1.05 },
+];
+
+
+function makeUtter(text, pitch, rate, voice) {
+  const u = new SpeechSynthesisUtterance(text);
+  u.pitch  = Math.min(2, Math.max(0.5, pitch + (Math.random()-0.5)*0.12));
+  u.rate   = Math.min(2, Math.max(0.5, rate  + (Math.random()-0.5)*0.08));
+  u.volume = 0.92;
+  if (voice) u.voice = voice;
+  return u;
+}
+
+function playApplause(size) {
+  if (state.muted) return;
+  if (!window.speechSynthesis) return;
+
+  // 1. Spoken cheer
+  try {
+    window.speechSynthesis.cancel();
+    const pool  = size === 'big' ? CHEERS_BIG : CHEERS_SMALL;
+    const cheer = pool[Math.floor(Math.random() * pool.length)];
+    const trySpeak = () => {
+      const voice = getVoice();
+      const u1 = makeUtter(cheer.a, cheer.p1, cheer.r1, voice);
+      if (cheer.b) {
+        u1.onend = () => window.speechSynthesis.speak(makeUtter(cheer.b, cheer.p2, cheer.r2, voice));
+      }
+      window.speechSynthesis.speak(u1);
+    };
+    window.speechSynthesis.getVoices().length ? trySpeak() : (window.speechSynthesis.onvoiceschanged = trySpeak);
+  } catch(e) {}
+
+  // 2. Chime
+  try {
+    const ctx   = new (window.AudioContext || window.webkitAudioContext)();
+    const playChime = () => {
+      const notes = size === 'big' ? [523,659,784,1047] : [523,659,784];
+      notes.forEach((freq, i) => {
+        const t = ctx.currentTime + i * 0.13;
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine'; o.frequency.value = freq;
+        g.gain.setValueAtTime(0, t);
+        g.gain.linearRampToValueAtTime(0.16, t + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(t); o.stop(t + 0.6);
+      });
+      setTimeout(() => ctx.close(), notes.length * 130 + 700);
+    };
+    ctx.state === 'suspended' ? ctx.resume().then(playChime).catch(()=>{}) : playChime();
+  } catch(e) {}
+}
+
+/* ══════════════════════════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════════════════════════ */
+function triggerConfetti(size) {
+  playApplause(size);
+  const container = document.getElementById('confetti-container');
+  container.style.display = 'block';
+  const colors = ['#00b4d8','#06d6a0','#ffd166','#ff6b6b','#7b5ea7','#fff'];
+  const count  = size === 'big' ? 200 : 80;
+  const newParticles = [];
+  for (let i = 0; i < count; i++) {
+    const p  = document.createElement('div');
+    p.className = 'cp';
+    const sz = Math.random() * 10 + 5;
+    p.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:-${sz}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>.5?'50%':'3px'};animation:fall ${Math.random()*2.5+1.5}s ${Math.random()*1.5}s linear forwards;`;
+    container.appendChild(p);
+    newParticles.push(p);
+  }
+  setTimeout(() => {
+    newParticles.forEach(p => p.remove());
+    if (!container.children.length) container.style.display = 'none';
+  }, 5000);
+}
+
+/* Small star burst for "Kind of" responses */
+function triggerStarBurst() {
+  const container = document.getElementById('confetti-container');
+  // Don't clear existing particles — layer on top so simultaneous calls don't cancel each other
+  container.style.display = 'block';
+  const stars = ['⭐','✨','🌟'];
+  const newParticles = [];
+  for (let i = 0; i < 12; i++) {
+    const p = document.createElement('div');
+    p.style.cssText = `position:absolute;font-size:${Math.random()*14+12}px;left:${30+Math.random()*40}%;top:30%;animation:fall ${Math.random()*1.2+0.8}s ${Math.random()*0.4}s ease-out forwards;`;
+    p.textContent = stars[Math.floor(Math.random()*3)];
+    container.appendChild(p);
+    newParticles.push(p);
+  }
+  setTimeout(() => {
+    newParticles.forEach(p => p.remove());
+    if (!container.children.length) container.style.display = 'none';
+  }, 2000);
+}
+
+/* ══════════════════════════════════════════════════════════
+   TOAST NOTIFICATIONS
+══════════════════════════════════════════════════════════ */
+function showToast(msg, duration) {
+  duration = duration || 2800;
+  let toast = document.getElementById('_toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = '_toast';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    toast.setAttribute('aria-atomic', 'true');
+    toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a2e4a;color:#fff;padding:10px 20px;border-radius:99px;font-size:14px;font-weight:700;z-index:99999;opacity:0;transition:opacity 0.25s,transform 0.25s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.3)';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(20px)';
+  }, duration);
+}
+
+/* ══════════════════════════════════════════════════════════
+   KICK OFF
+══════════════════════════════════════════════════════════ */
+// Flush any pending debounced save before the page closes
+window.addEventListener('beforeunload', () => {
+  clearTimeout(_saveTimer);
+  _doSave();
+});
+
+init();
+</script>
+</body>
+</html>
